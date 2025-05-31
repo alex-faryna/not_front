@@ -4,6 +4,7 @@ import {useShallow} from "zustand/react/shallow";
 import {Link, Route, Routes, useNavigate, useParams} from "react-router";
 import {useEffect} from "react";
 import {backButton} from "@telegram-apps/sdk-react";
+import {Button} from "@/components/ui/button.tsx";
 
 function Profile() {
 
@@ -36,7 +37,10 @@ function Item() {
     }
   }, []);
 
-  return <span>Heello item { params.itemId }</span>
+  return <div>
+    <span>Heello item { params.itemId }</span>
+    <Button>Click me</Button>
+  </div>
 }
 
 function App() {
