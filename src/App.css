@@ -1,7 +1,6 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+    padding: 0;
   text-align: center;
 }
 
@@ -39,4 +38,115 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.main {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-layout {
+    width: 200vw;
+    height: 100%;
+    max-width: 200vw;
+    display: grid;
+    grid-template-areas: 'main secondary';
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main-container {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100%;
+    transition: transform 250ms ease-out;
+    grid-area: main;
+}
+
+.profile-container {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100%;
+    transition: transform 250ms ease-out;
+    grid-area: secondary;
+}
+
+.side-container {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100%;
+    transition: transform 250ms ease-out;
+    grid-area: secondary;
+}
+
+.page {
+    min-width: 100vw;
+    width: 100vw;
+    height: 100%;
+}
+
+.home {
+    background: orange;
+}
+
+.home .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    overflow: auto;
+    height: 550px;
+    padding: 0.5rem;
+}
+
+.home .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 16px;
+    background: lightgreen;
+}
+
+.profile {
+    background: #646cff;
+}
+
+.page.item {
+    background: lightcoral;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+.page.item .hero {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: lightgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-item {
+    width: calc(100% - 1rem);
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: lightgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    visibility: hidden;
+
+    top: 0;
+    left: 0;
+    position: fixed;
 }

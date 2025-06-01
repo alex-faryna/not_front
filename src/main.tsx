@@ -2,7 +2,6 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import {backButton, closingBehavior, init} from "@telegram-apps/sdk-react";
-import {BrowserRouter} from "react-router";
 
 init();
 
@@ -20,7 +19,5 @@ if (backButton.mount.isAvailable()) {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter> as React.ReactNode
+  <App />
 )
