@@ -1,40 +1,16 @@
 import './App.css'
-import {useItems, usePage} from "./state/state.ts";
-import {useEffect, useRef, MouseEvent, useState} from "react";
+import {useItem, usePage} from "./state/state.ts";
+import {useEffect, useRef, useState} from "react";
 import {backButton} from "@telegram-apps/sdk-react";
+import {ProfilePage} from "./pages/profile.tsx";
+import {ItemPage} from "./pages/item.tsx";
+import {HomePage} from "./pages/home.tsx";
 
-function Profile() {
-  return <div className='page profile'>
-    Hello profile
-  </div>;
-}
-
-function Home({onAnimation}) {
-  const { setPage } = usePage();
-  const { items, loadItems } = useItems();
-  useEffect(() => void loadItems(), []);
-
-  const onClick = (event: MouseEvent) => {
-    const target = event.target as HTMLDivElement;
-    onAnimation(target);
-    target.style.opacity = '0';
-    setPage('item');
-  }
-
-  return <div className='page home'>
-    <div className='grid'>
-      {items.map((item) => (
-        <div key={item.id} className='item' onClick={onClick}>{item.name}</div>
-      ))}
-    </div>
-    <span>Heello home</span>
-  </div>
-}
-
-function HeroItem({isAnimating, from, to}: { from: HTMLDivElement, to: HTMLDivElement }) {
+function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
   const forward = page === 'item';
   const hero = useRef<HTMLDivElement>(null as HTMLDivElement);
+  const { item } = useItem();
 
   useEffect(() => {
     if(!to || !from) return;
@@ -43,33 +19,26 @@ function HeroItem({isAnimating, from, to}: { from: HTMLDivElement, to: HTMLDivEl
 
     hero.current.animate([
       {
+        borderRadius: '16px',
         visibility: 'visible',
         transform: `translate(${_from.left - _from.width / 2}px, ${_from.top - _from.width / 2}px) scale(${_from.width / _to.width})`,
       },
       {
+        borderRadius: '20px',
         visibility: 'visible',
         transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1)`
       }
-    ], {duration: 250, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
+    ], {duration: 300, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
   }, [isAnimating]);
 
-  return <div style={{opacity: isAnimating ? '1' : '0'}} ref={hero} className='hero-item'></div>
-}
-
-function Item({ref, isAnimating}) {
-  return <>
-    <div className='page item'>
-      <div ref={ref} className='hero' style={{opacity: isAnimating ? '0' : '1'}}>
-        Hero
-      </div>
-
-      <span>Heello item {213}</span>
-    </div>
-  </>
+  return <div style={{opacity: isAnimating ? '1' : '0'}} ref={hero} className='hero-item'>
+    { isAnimating && <img src={item.images[0]} alt={`Item ${item.name}`} /> }
+  </div>
 }
 
 function App() {
   const {page, setPage} = usePage();
+  const { select } = useItem();
 
   useEffect(() => {
     if(page === 'item') {
@@ -95,8 +64,6 @@ function App() {
 
   useEffect(() => {
     if(!heroAnimation && targetElem && page === 'home') {
-      // hero.current.style.opacity = '1';
-      // hero.current = null as HTMLDivElement;
       targetElem.style.opacity = '1';
       setTargetElem(null);
     }
@@ -105,18 +72,19 @@ function App() {
   return <div className='main'>
     <div className='main-layout'>
       <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
-        <Home onAnimation={elem => {
+        <HomePage onSelect={(item, elem) => {
+          select(item);
           setTargetElem(elem);
           setHeroAnimation(true);
         }}/>
       </div>
       <div className='side-container' onTransitionEnd={() => setHeroAnimation(false)}
            style={{transform: `translateX(${page === 'item' ? '-100%' : '0'})`}}>
-        <Item ref={hero} isAnimating={heroAnimation}/>
+        <ItemPage ref={hero} isAnimating={heroAnimation}/>
       </div>
       <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
       <div className='profile-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
-        <Profile/>
+        <ProfilePage/>
       </div>
     </div>
     <div className='menu'>

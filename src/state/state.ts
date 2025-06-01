@@ -18,25 +18,30 @@ export interface Item {
 export interface ShopState {
   loading: boolean,
   items: Item[],
-  page: Page,
-  bears: number,
-  increase: (by: number) => void,
-  setPage: (val: string) => void,
   loadItems: () => void,
+
+  selected: number;
+  select: (val: number) => void,
+
+  page: Page,
+  setPage: (val: string) => void,
 }
 
 export const useShopStore = create<ShopState>()((set) => ({
-  page: 'home',
-  bears: 0,
+  loading: false,
   items: [],
-  increase: (val: number) => set(state => ({ bears: state.bears + val })),
-  setPage: (page: Page) => set(() => ({ page })),
   loadItems: async () => {
     set(() => ({ loading: true }));
     const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/items.json');
     const { data: items } = await response.json();
-    set(() => ({ items }));
-  }
+    set(() => ({ items, loading: false }));
+  },
+
+  selected: -1,
+  select: (selected: number) => set(() => ({ selected })),
+
+  page: 'home',
+  setPage: (page: Page) => set(() => ({ page })),
 }));
 
 export const usePage = () => useShopStore(
@@ -45,4 +50,8 @@ export const usePage = () => useShopStore(
 
 export const useItems = () => useShopStore(
   useShallow(({ items, loadItems }) => ({ items, loadItems })),
+);
+
+export const useItem = () => useShopStore(
+  useShallow(({ items, selected, select }) => ({ select, item: items.find(item => item.id === selected) })),
 );

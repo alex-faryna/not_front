@@ -112,6 +112,17 @@
     aspect-ratio: 1;
     border-radius: 16px;
     background: lightgreen;
+    position: relative;
+    background-size: cover;
+
+    img {
+        border-radius: 16px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
 .profile {
@@ -128,11 +139,20 @@
 .page.item .hero {
     width: 100%;
     aspect-ratio: 1;
-    border-radius: 6px;
+    border-radius: 20px;
     background: lightgreen;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    img {
+        border-radius: 16px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
 .hero-item {
@@ -149,4 +169,13 @@
     top: 0;
     left: 0;
     position: fixed;
+
+    img {
+        border-radius: 16px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
