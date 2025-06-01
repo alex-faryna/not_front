@@ -40,7 +40,7 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 
 function App() {
   const {page, setPage} = usePage();
-  const { select } = useItem();
+  const { item, select } = useItem();
 
   useEffect(() => {
     if(page === 'item') {
@@ -77,19 +77,21 @@ function App() {
       <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
         <HomePage onSelect={(item, elem) => {
           select(item);
-          setTargetElem(elem);
-          setHeroAnimation(true);
+          setTimeout(() => {
+            setTargetElem(elem);
+            setHeroAnimation(true);
+          });
         }}/>
       </div>
       <div className='side-container' onTransitionEnd={() => setHeroAnimation(false)}
            style={{transform: `translateX(${page === 'item' ? '-100%' : '0'})`}}>
-        <ItemPage ref={hero} isAnimating={heroAnimation}/>
+        { item && <ItemPage ref={hero} isAnimating={heroAnimation}/> }
       </div>
-      <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
       <div className='profile-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
         <ProfilePage/>
       </div>
     </div>
+    <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
     <Menu />
   </div>;
 }

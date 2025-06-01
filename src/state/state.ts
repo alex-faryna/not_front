@@ -20,6 +20,11 @@ export interface ShopState {
   items: Item[],
   loadItems: () => void,
 
+  cart: Record<number, number>;
+  addToCart: (id: number) => void;
+  removeFromCart: (id: number) => void;
+  // activeImage
+
   selected: number;
   select: (val: number) => void,
 
@@ -34,8 +39,20 @@ export const useShopStore = create<ShopState>()((set) => ({
     set(() => ({ loading: true }));
     const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/items.json');
     const { data: items } = await response.json();
+    console.log(items);
     set(() => ({ items, loading: false }));
   },
+
+  cart: {},
+  // check for how many left
+  addToCart: (id: number) => set(({ cart }) => ({ cart: { ...cart, [id]: (cart[id] || 0) + 1 } })),
+  removeFromCart: (id: number) => set(({ cart }) => {
+    const count = cart[id] || 0;
+    if (count) {
+      return { ...cart, [id]: cart[id] - 1 }
+    }
+    return cart;
+  }),
 
   selected: -1,
   select: (selected: number) => set(() => ({ selected })),
@@ -52,6 +69,10 @@ export const useItems = () => useShopStore(
   useShallow(({ items, loadItems }) => ({ items, loadItems })),
 );
 
+export const useCart = () => useShopStore(
+  useShallow(({ cart, addToCart, removeFromCart }: ShopState) => ({ cart, addToCart, removeFromCart })),
+);
+
 export const useItem = () => useShopStore(
-  useShallow(({ items, selected, select }) => ({ select, item: items.find(item => item.id === selected) })),
+  useShallow(({ items, selected, select }: ShopState) => ({ select, item: items.find(item => item.id === selected) })),
 );
