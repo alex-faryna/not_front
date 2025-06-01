@@ -6,6 +6,7 @@ import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
 import {HomePage} from "./pages/home.tsx";
 import {Menu} from "./ui/menu.tsx";
+import {Header} from "./ui/header.tsx";
 
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
@@ -71,6 +72,7 @@ function App() {
   }, [heroAnimation]);
 
   return <div className='main'>
+    <Header />
     <div className='main-layout'>
       <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
         <HomePage onSelect={(item, elem) => {
