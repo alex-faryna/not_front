@@ -5,6 +5,7 @@ import {backButton} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
 import {HomePage} from "./pages/home.tsx";
+import {Menu} from "./ui/menu.tsx";
 
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
@@ -87,10 +88,7 @@ function App() {
         <ProfilePage/>
       </div>
     </div>
-    <div className='menu'>
-      <span onClick={() => setPage('home')}>Home</span>
-      <span onClick={() => setPage('profile')}>Profile</span>
-    </div>
+    <Menu />
   </div>;
 }
 
