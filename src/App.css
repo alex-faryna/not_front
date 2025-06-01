@@ -111,7 +111,6 @@
     justify-content: center;
     aspect-ratio: 1;
     border-radius: 16px;
-    background: lightgreen;
     position: relative;
     background-size: cover;
 
@@ -140,7 +139,6 @@
     width: 100%;
     aspect-ratio: 1;
     border-radius: 20px;
-    background: lightgreen;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,7 +157,6 @@
     width: calc(100% - 1rem);
     aspect-ratio: 1;
     border-radius: 6px;
-    background: lightgreen;
     display: flex;
     align-items: center;
     justify-content: center;

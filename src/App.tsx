@@ -28,11 +28,11 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
         visibility: 'visible',
         transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1)`
       }
-    ], {duration: 300, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
+    ], {duration: 250, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
   }, [isAnimating]);
 
   return <div style={{opacity: isAnimating ? '1' : '0'}} ref={hero} className='hero-item'>
-    { isAnimating && <img src={item.images[0]} alt={`Item ${item.name}`} /> }
+    { item && <img src={item.images[0]} alt={`Item ${item.name}`} /> }
   </div>
 }
 
