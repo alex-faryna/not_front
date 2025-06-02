@@ -1,9 +1,14 @@
 import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {backButton, closingBehavior, init} from "@telegram-apps/sdk-react";
+import {backButton, closingBehavior, init, swipeBehavior, themeParams, viewport} from "@telegram-apps/sdk-react";
 
 init();
+themeParams.mountSync();
+themeParams.bindCssVars();
+
+swipeBehavior.mount();
+swipeBehavior.disableVertical();
 
 if (closingBehavior.mount.isAvailable()) {
   console.log('mount');

@@ -42,9 +42,9 @@
 
 .main {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     max-width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -94,6 +94,10 @@
 
 .home {
     background: orange;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
 }
 
 .home .grid {
@@ -101,7 +105,9 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
     overflow: auto;
-    height: 550px;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
     padding: 0.5rem;
 }
 
@@ -115,7 +121,6 @@
         aspect-ratio: 1;
         border-radius: 16px;
         width: 100%;
-        height: 100%;
         object-fit: cover;
         max-width: 100%;
         max-height: 100%;

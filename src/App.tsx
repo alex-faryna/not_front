@@ -1,7 +1,7 @@
 import './App.css'
 import {useItem, usePage} from "./state/state.ts";
 import {useEffect, useRef, useState} from "react";
-import {backButton} from "@telegram-apps/sdk-react";
+import {backButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
 import {HomePage} from "./pages/home.tsx";
@@ -41,6 +41,38 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 function App() {
   const {page, setPage} = usePage();
   const { item, select } = useItem();
+
+
+  useEffect(() => {
+    (async () => {
+
+      console.log(viewport);
+
+      if (viewport.mount.isAvailable()) {
+        try {
+          const promise = viewport.mount();
+          console.log(viewport.isMounting(), viewport.isMounted());
+          await promise;
+          console.log(viewport.isMounting(), viewport.isMounted());
+
+        } catch (err) {
+          console.log('133');
+          console.log(err);
+          console.log(viewport.mountError());
+          console.log(viewport.isMounting(), viewport.isMounted());
+        }
+
+        // await viewport.mount();
+        console.log('mounted??');
+        if (viewport.bindCssVars.isAvailable()) {
+          console.log("available");
+          viewport.bindCssVars();
+        }
+      } else {
+        console.log('not');
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if(page === 'item') {

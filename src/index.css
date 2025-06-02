@@ -16,6 +16,7 @@
 
     padding: 0;
     margin: 0;
+    height: 100%;
 }
 
 * {
@@ -25,7 +26,15 @@
 #root, html, body {
     padding: 0;
     margin: 0;
+    height: 100%;
+    width: 100%;
 }
+
+body {
+    padding-bottom: var(--tg-viewport-safe-area-inset-bottom, 0);
+    padding-top: calc(var(--tg-viewport-safe-area-inset-top, 0) + var(--tg-viewport-content-safe-area-inset-top, 0));
+}
+
 
 a {
   font-weight: 500;
@@ -34,14 +43,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {

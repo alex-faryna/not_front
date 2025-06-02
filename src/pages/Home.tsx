@@ -20,7 +20,7 @@ export function HomePage({ onSelect, isAnimating }) {
   return <div className='page home'>
     <Header />
     <div className='grid'>
-      {items.map((item) => (
+      {[].map((item) => (
         <div key={item.id} className='item relative' onClick={event => onClick(item.id, event)}>
           <img className='img' src={item.images[0]} alt={`Item ${item.name}`} />
           { cart[item.id] && <div className={`transition-opacity rounded-full bg-white h-[22px] w-[22px] absolute top-[8px] right-[8px] flex items-center justify-center ${isAnimating ? 'opacity-0' : ''}`}>
@@ -34,6 +34,5 @@ export function HomePage({ onSelect, isAnimating }) {
         </div>
       ))}
     </div>
-    <span>Heello home</span>
   </div>
 }
