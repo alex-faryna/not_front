@@ -7,7 +7,7 @@ export function Header() {
 
   const cartQuantity = Object.keys(cart).reduce((acc, curr) => acc + +!!cart[curr], 0);
 
-  return <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center'>
+  return <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center' style={{ flex: '0 0 60px' }}>
     <span className='text-xl mr-auto'>Not Store</span>
     <img src={searchIcon} alt='Search' width={22} height={22} />
     { cartQuantity

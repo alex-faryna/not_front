@@ -55,6 +55,7 @@
     max-width: 200vw;
     display: grid;
     grid-template-areas: 'main secondary';
+    overflow: hidden;
 }
 
 .menu {
@@ -68,6 +69,7 @@
     height: 100%;
     transition: transform 250ms ease-out;
     grid-area: main;
+    overflow: hidden;
 }
 
 .profile-container {
@@ -98,16 +100,24 @@
     flex-direction: column;
     min-height: 0;
     height: 100%;
+    max-height: 100%;
+}
+
+.grid-container {
+    flex: 1 1 auto;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .home .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
-    overflow: auto;
-    height: 100%;
     max-height: 100%;
-    min-height: 0;
     padding: 0.5rem;
 }
 
