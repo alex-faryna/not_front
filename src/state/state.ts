@@ -47,11 +47,12 @@ export const useShopStore = create<ShopState>()((set) => ({
   // check for how many left
   addToCart: (id: number) => set(({ cart }) => ({ cart: { ...cart, [id]: (cart[id] || 0) + 1 } })),
   removeFromCart: (id: number) => set(({ cart }) => {
-    const count = cart[id] || 0;
-    if (count) {
-      return { ...cart, [id]: cart[id] - 1 }
+    const { [id]: key, ...other } = cart || { };
+    const count = key || 0;
+    if (count <= 1) {
+      return { cart: { ...other } };
     }
-    return cart;
+    return { cart: { ...other, [id]: key - 1 } };
   }),
 
   selected: -1,

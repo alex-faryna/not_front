@@ -72,10 +72,9 @@ function App() {
   }, [heroAnimation]);
 
   return <div className='main'>
-    <Header />
     <div className='main-layout'>
       <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
-        <HomePage onSelect={(item, elem) => {
+        <HomePage isAnimating={heroAnimation} onSelect={(item, elem) => {
           select(item);
           setTimeout(() => {
             setTargetElem(elem);

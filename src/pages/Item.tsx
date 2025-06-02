@@ -1,5 +1,4 @@
 import {useCart, useItem} from "../state/state.ts";
-import {useEffect} from "react";
 
 function ItemInfo({item}) {
 
@@ -28,7 +27,7 @@ function ItemInfo({item}) {
 
 export function ItemPage({ref, isAnimating}) {
   const {item} = useItem();
-  const {cart, addToCart} = useCart();
+  const {cart, addToCart, removeFromCart} = useCart();
 
   return <>
     <div className='page item'>
@@ -38,11 +37,21 @@ export function ItemPage({ref, isAnimating}) {
         {item && <img src={item.images[0]} alt={`Item ${item.name}`}/>}
       </div>
 
-      <div className='flex gap-2'>
-        {(cart[item.id] || 0) ? <span>- {cart[item.id]} +</span> : <span onClick={() => {
-          addToCart(item.id);
-          console.log(item.id);
-        }}>Add to cart</span>}
+      <div className='flex gap-2 justify-around'>
+        {
+          (cart[item.id] || 0)
+          ? (
+              <div className='flex gap-1'>
+                <span onClick={() => removeFromCart(item.id)}>-</span>
+                <span>{cart[item.id]}</span>
+                <span onClick={() => addToCart(item.id)}>+</span>
+              </div>
+            )
+          : <span onClick={() => {
+            addToCart(item.id);
+            console.log(item.id);
+          }}>Add to cart</span>
+        }
         <span>Buy now</span>
       </div>
     </div>
