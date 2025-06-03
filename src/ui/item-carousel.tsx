@@ -1,9 +1,7 @@
 import {useCallback, useEffect, useState} from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 
-function Thumb(props) {
-  const { selected, index, onClick } = props
-
+function Thumb({ selected, index, onClick, children }) {
   return (
     <div
       className={'embla-thumbs__slide'.concat(
@@ -15,18 +13,18 @@ function Thumb(props) {
         type="button"
         className="embla-thumbs__slide__number"
       >
-        {index + 1}
+        { children(index) }
       </button>
     </div>
   )
 }
 
-export function ItemCarousel( { slides, options }) {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options)
+export function ItemCarousel( { slides, options, children }) {
+  const [selectedIndex, setSelectedIndex] = useState(slides[0])
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ ...options, loop: true })
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
-    dragFree: true
+    dragFree: true,
   })
 
   const onThumbClick = useCallback(
@@ -56,7 +54,7 @@ export function ItemCarousel( { slides, options }) {
         <div className="embla__container">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
-              <div className="embla__slide__number">{index + 1}</div>
+              <div className="embla__slide__number">{ children(index) }</div>
             </div>
           ))}
         </div>
@@ -65,13 +63,15 @@ export function ItemCarousel( { slides, options }) {
       <div className="embla-thumbs">
         <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
           <div className="embla-thumbs__container">
-            {slides.map((index) => (
+            {slides.map((image) => (
               <Thumb
-                key={index}
-                onClick={() => onThumbClick(index)}
-                selected={index === selectedIndex}
-                index={index}
-              />
+                key={image}
+                onClick={() => onThumbClick(image)}
+                selected={image === selectedIndex}
+                index={image}
+              >
+                { children }
+              </Thumb>
             ))}
           </div>
         </div>
