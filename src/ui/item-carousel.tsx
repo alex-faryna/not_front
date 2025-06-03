@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useState} from 'react'
+import {act, useCallback, useEffect, useMemo, useState} from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import {useActiveImage} from "../state/state.ts";
 

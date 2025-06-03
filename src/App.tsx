@@ -27,29 +27,29 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
     console.log(_from.height / _to.height);
      */
 
-    hero.current.animate([
+
+
+    (hero.current.firstChild as HTMLImageElement).animate([
       {
         borderRadius: '16px',
-        visibility: 'visible',
-        transform: `translate(${_from.left}px, ${_from.top}px)`, // - half of item mb
-        width: `${_from.width}px`,
-        height: `${_from.height}px`,
-        // scale(${_from.width / _to.width}, ${_from.height / _to.height})
+        transform: `translate(${_from.left - _from.width / 2}px, ${_from.top - _from.height / 2}px) scale(${_from.width / _to.width}, ${_from.height / _to.height})`, // - half of item mb
+        width: `${_to.width}px`,
+        height: `${_to.height}px`,
       },
       {
         borderRadius: '20px',
-        visibility: 'visible',
-        transform: `translate(${to.offsetLeft}px, ${_to.top}px)`,
+        transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1, 1)`,
         width: `${_to.width}px`,
         height: `${_to.height}px`,
-        // scale(1, 1)
       }
-    ], {duration: 250, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
+    ], {duration: 400, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
   }, [isAnimating]);
 
-  return <div style={{opacity: isAnimating ? '1' : '0'}} ref={hero} className='hero-item'>
-    { item && <img src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} className='rounded-[20px]' /> }
-  </div>
+  if(!item) return null;
+
+  return <div ref={hero}>
+    { item && <img style={{opacity: isAnimating ? '1' : '0'}} className='hero-item' src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} /> }
+  </div>;
 }
 
 function App() {
