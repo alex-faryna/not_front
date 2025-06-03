@@ -9,10 +9,17 @@ export interface Item {
   category: string,
   description: string,
   price: number,
-  currency: "NOT",
+  currency: "NOT" | string,
   left: number,
   tags: Record<string, string>,
   images: string[]
+}
+
+export interface HistoryEntry {
+  timestamp: number,
+  id: number,
+  total: number,
+  currency: "NOT" | string,
 }
 
 export interface ShopState {
@@ -25,11 +32,15 @@ export interface ShopState {
   removeFromCart: (id: number) => void;
   // activeImage
 
+  loadingHistory: boolean;
+  history: HistoryEntry[];
+  loadHistory: () => void;
+
   selected: number;
-  select: (val: number) => void,
+  select: (val: number) => void;
 
   page: Page,
-  setPage: (val: string) => void,
+  setPage: (val: string) => void;
 }
 
 export const useShopStore = create<ShopState>()((set) => ({
@@ -55,6 +66,16 @@ export const useShopStore = create<ShopState>()((set) => ({
     return { cart: { ...other, [id]: key - 1 } };
   }),
 
+  loadingHistory: false,
+  history: [],
+  loadHistory: async () => {
+    set(() => ({ loadingHistory: true }));
+    const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/history.json');
+    const { data: history } = await response.json();
+    // TODO: catch error
+    set(() => ({ history, loadingHistory: false }));
+  },
+
   selected: -1,
   select: (selected: number) => set(() => ({ selected })),
 
@@ -67,7 +88,7 @@ export const usePage = () => useShopStore(
 );
 
 export const useItems = () => useShopStore(
-  useShallow(({ items, loadItems }) => ({ items, loadItems })),
+  useShallow(({ items, loadItems, loading }) => ({ items, loadItems, loading })),
 );
 
 export const useCart = () => useShopStore(
@@ -76,4 +97,13 @@ export const useCart = () => useShopStore(
 
 export const useItem = () => useShopStore(
   useShallow(({ items, selected, select }: ShopState) => ({ select, item: items.find(item => item.id === selected) })),
+);
+
+export const useHistory = () => useShopStore(
+  useShallow(({ items, history, loadingHistory, loadHistory }: ShopState) => ({
+    loadHistory,
+    loadingHistory,
+    history,
+    items,
+  })),
 );

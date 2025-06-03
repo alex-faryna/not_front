@@ -1,7 +1,7 @@
 import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {backButton, closingBehavior, init, swipeBehavior, themeParams, viewport} from "@telegram-apps/sdk-react";
+import {backButton, closingBehavior, init, swipeBehavior, themeParams} from "@telegram-apps/sdk-react";
 
 init();
 themeParams.mountSync();

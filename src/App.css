@@ -139,6 +139,7 @@
 
 .profile {
     background: #646cff;
+    overflow: hidden;
 }
 
 .page.item {
