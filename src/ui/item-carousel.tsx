@@ -1,5 +1,6 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import {useActiveImage} from "../state/state.ts";
 
 function Thumb({ selected, index, onClick, children }) {
   return (
@@ -19,8 +20,15 @@ function Thumb({ selected, index, onClick, children }) {
   )
 }
 
-export function ItemCarousel( { slides, options, children }) {
-  const [selectedIndex, setSelectedIndex] = useState(slides[0])
+// TODO export id upwards
+export function ItemCarousel({ id, slides, options, children }) {
+  const { activeImages, setActiveImage } = useActiveImage();
+  // TODO: use %
+  const selectedIndex = useMemo(() => Math.max(0, Math.min(activeImages[id] || 0, slides.length)), [id, activeImages]);
+  const setSelectedIndex = useCallback((index: number) => setActiveImage(id, index), [id, setActiveImage]);
+
+  console.log(activeImages);
+
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ ...options, loop: true })
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',

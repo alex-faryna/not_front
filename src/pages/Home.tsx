@@ -1,4 +1,4 @@
-import {useCart, useItems, usePage} from "../state/state.ts";
+import {useActiveImage, useCart, useItems, usePage} from "../state/state.ts";
 import {MouseEvent, useEffect} from "react";
 import checkIcon from '../assets/check.svg'
 import {Header} from "../ui/header.tsx";
@@ -6,6 +6,7 @@ import {Header} from "../ui/header.tsx";
 export function HomePage({ onSelect, isAnimating }) {
   const { setPage } = usePage();
   const { items, loadItems } = useItems();
+  const { activeImages } = useActiveImage();
   const { cart } = useCart();
   useEffect(() => void loadItems(), []);
 
@@ -23,7 +24,7 @@ export function HomePage({ onSelect, isAnimating }) {
       <div className='grid'>
         {items.map((item) => (
           <div key={item.id} className='item relative' onClick={event => onClick(item.id, event)}>
-            <img className='img' src={item.images[0]} alt={`Item ${item.name}`} />
+            <img className='img' src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} />
             { cart[item.id] && <div className={`transition-opacity rounded-full bg-white h-[22px] w-[22px] absolute top-[8px] right-[8px] flex items-center justify-center ${isAnimating ? 'opacity-0' : ''}`}>
               <img src={checkIcon} alt='Added to cart' width={12} height={12} />
             </div> }

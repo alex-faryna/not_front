@@ -30,7 +30,9 @@ export interface ShopState {
   cart: Record<number, number>;
   addToCart: (id: number) => void;
   removeFromCart: (id: number) => void;
-  // activeImage
+
+  activeImages: Record<number, number>;
+  setActiveImage: (id: number, index: number) => void;
 
   loadingHistory: boolean;
   history: HistoryEntry[];
@@ -65,6 +67,10 @@ export const useShopStore = create<ShopState>()((set) => ({
     }
     return { cart: { ...other, [id]: key - 1 } };
   }),
+
+  activeImages: {},
+  setActiveImage: (id: number, index: number) => set(({ activeImages }) =>
+    ({ activeImages: { ...activeImages, [id]: index } })),
 
   loadingHistory: false,
   history: [],
@@ -106,4 +112,8 @@ export const useHistory = () => useShopStore(
     history,
     items,
   })),
+);
+
+export const useActiveImage = () => useShopStore(
+  useShallow(({ activeImages, setActiveImage }: ShopState) => ({ activeImages, setActiveImage })),
 );

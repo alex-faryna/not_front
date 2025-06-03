@@ -34,9 +34,9 @@ export function ItemPage({ref, isAnimating}) {
     <div className='page item'>
       {item && <ItemInfo item={item}/>}
 
-      { item?.images?.length && <ItemCarousel slides={item.images.map((_, idx) => idx)} options={{ }}>
-        { index => <div className='www w-100 relative bg-white'>
-          <img className='absolute top-0 left-0 w-100 h-100' src={item.images[index]} />
+      { item?.images?.length && <ItemCarousel id={item.id} slides={item.images.map((_, idx) => idx)} options={{ }}>
+        { index => <div className='www w-100 relative'>
+          <img className='absolute top-0 left-0 w-full h-full rounded-[20px]' src={item.images[index]} />
         </div> }
       </ItemCarousel> }
 
