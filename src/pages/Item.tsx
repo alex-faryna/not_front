@@ -34,11 +34,11 @@ export function ItemPage({ref, isAnimating}) {
     <div className='page item'>
       {item && <ItemInfo item={item}/>}
 
-      { item?.images?.length && <ItemCarousel id={item.id} slides={item.images.map((_, idx) => idx)} options={{ }}>
+      <ItemCarousel ref={ref} id={item.id} slides={item.images.map((_, idx) => idx)} options={{ }}>
         { index => <div className='www w-100 relative'>
           <img className='absolute top-0 left-0 w-full h-full rounded-[20px]' src={item.images[index]} />
         </div> }
-      </ItemCarousel> }
+      </ItemCarousel>
 
       { /* <div ref={ref} className='hero' style={{opacity: isAnimating ? '0' : '1'}}>
         {item && <img src={item.images[0]} alt={`Item ${item.name}`}/>}

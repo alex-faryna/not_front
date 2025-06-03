@@ -21,19 +21,17 @@ function Thumb({ selected, index, onClick, children }) {
 }
 
 // TODO export id upwards
-export function ItemCarousel({ id, slides, options, children }) {
+export function ItemCarousel({ ref, id, slides, options, children }) {
   const { activeImages, setActiveImage } = useActiveImage();
   // TODO: use %
   const selectedIndex = useMemo(() => Math.max(0, Math.min(activeImages[id] || 0, slides.length)), [id, activeImages]);
   const setSelectedIndex = useCallback((index: number) => setActiveImage(id, index), [id, setActiveImage]);
-
-  console.log(activeImages);
-
+  
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ ...options, loop: true })
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
     dragFree: true,
-  })
+  });
 
   const onThumbClick = useCallback(
     (index: number) => {
@@ -58,7 +56,10 @@ export function ItemCarousel({ id, slides, options, children }) {
 
   return (
     <div className="embla">
-      <div className="embla__viewport" ref={emblaMainRef}>
+      <div className="embla__viewport" ref={rf => {
+        ref.current = rf;
+        emblaMainRef!(rf);
+      }}>
         <div className="embla__container">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
