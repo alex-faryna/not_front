@@ -171,12 +171,11 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-
     top: 0;
     left: 0;
     position: fixed;
-
     object-fit: cover;
+    transform-origin: 0 0;
 }
 
 .embla {

@@ -27,20 +27,17 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
     console.log(_from.height / _to.height);
      */
 
-
-
-    (hero.current.firstChild as HTMLImageElement).animate([
+    const heroElement = hero.current.firstChild as HTMLImageElement;
+    heroElement.style.width = `${_to.width}px`;
+    heroElement.style.height = `${_to.height}px`;
+    heroElement.animate([
       {
         borderRadius: '16px',
-        transform: `translate(${_from.left - _from.width / 2}px, ${_from.top - _from.height / 2}px) scale(${_from.width / _to.width}, ${_from.height / _to.height})`, // - half of item mb
-        width: `${_to.width}px`,
-        height: `${_to.height}px`,
+        transform: `translate(${_from.left}px, ${_from.top}px) scale(${_from.width / _to.width}, ${_from.height / _to.height})`, // - half of item mb
       },
       {
         borderRadius: '20px',
         transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1, 1)`,
-        width: `${_to.width}px`,
-        height: `${_to.height}px`,
       }
     ], {duration: 400, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
   }, [isAnimating]);
