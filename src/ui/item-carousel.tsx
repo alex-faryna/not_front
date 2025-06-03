@@ -1,4 +1,4 @@
-import {act, useCallback, useEffect, useMemo, useState} from 'react'
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import {useActiveImage} from "../state/state.ts";
 
@@ -33,10 +33,18 @@ export function ItemCarousel({ ref, id, slides, options, children }) {
     dragFree: true,
   });
 
+  const once = useRef(true);
+  useEffect(() => {
+    if (emblaMainApi && emblaThumbsApi && activeImages[id] && once.current) {
+      once.current = false;
+      onThumbClick(activeImages[id], true);
+    }
+  }, [emblaMainApi, emblaThumbsApi]);
+
   const onThumbClick = useCallback(
-    (index: number) => {
+    (index: number, jump = false) => {
       if (!emblaMainApi || !emblaThumbsApi) return
-      emblaMainApi.scrollTo(index);
+      emblaMainApi.scrollTo(index, jump);
     },
     [emblaMainApi, emblaThumbsApi]
   )
@@ -55,7 +63,7 @@ export function ItemCarousel({ ref, id, slides, options, children }) {
   }, [emblaMainApi, onSelect])
 
   return (
-    <div className="embla" key={id}>
+    <div className="embla">
       <div className="embla__viewport" ref={rf => {
         ref.current = rf;
         emblaMainRef!(rf);

@@ -1,7 +1,7 @@
 import './App.css'
 import './Embla.css'
 import {useActiveImage, useItem, usePage} from "./state/state.ts";
-import {act, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {backButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
@@ -11,7 +11,7 @@ import {Menu} from "./ui/menu.tsx";
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
   const forward = page === 'item';
-  const hero = useRef<HTMLDivElement>(null as HTMLDivElement);
+  const hero = useRef<HTMLDivElement>(null as HTMLImageElement);
   const { item } = useItem();
   const { activeImages } = useActiveImage();
 
@@ -20,7 +20,7 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
     const _from = from.getBoundingClientRect();
     const _to = to.getBoundingClientRect();
 
-    const heroElement = hero.current.firstChild as HTMLImageElement;
+    const heroElement = hero.current as HTMLImageElement;
     if (forward) {
       heroElement.style.width = `${_to.width}px`;
       heroElement.style.height = `${_to.height}px`;
@@ -33,7 +33,7 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
           borderRadius: '20px',
           transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1, 1)`,
         }
-      ], {duration: 400, easing: 'ease-out', fill: 'both' });
+      ], {duration: 500, easing: 'ease-out', fill: 'both' });
     } else {
       heroElement.style.width = `${_from.width}px`;
       heroElement.style.height = `${_from.height}px`;
@@ -46,15 +46,15 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
           borderRadius: '16px',
           transform: `translate(${_from.left}px, ${_from.top}px) scale(1, 1)`,
         },
-      ], {duration: 400, easing: 'ease-out', fill: 'both' });
+      ], {duration: 450, easing: 'ease-out', fill: 'both' });
     }
   }, [isAnimating]);
 
   if(!item) return null;
 
-  return <div ref={hero}>
-    { item && <img style={{opacity: isAnimating ? '1' : '0'}} className='hero-item' src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} /> }
-  </div>;
+  return <img ref={hero} style={{opacity: isAnimating ? '1' : '0'}}
+              className='hero-item' src={item.images[activeImages[item.id] || 0]}
+              alt={`Item ${item.name}`} />;
 }
 
 function App() {
@@ -64,15 +64,10 @@ function App() {
   useEffect(() => {
     (async () => {
 
-      console.log(viewport);
-
       if (viewport.mount.isAvailable()) {
         try {
           const promise = viewport.mount();
-          console.log(viewport.isMounting(), viewport.isMounted());
           await promise;
-          console.log(viewport.isMounting(), viewport.isMounted());
-
         } catch (err) {
           console.log('133');
           console.log(err);
@@ -80,14 +75,9 @@ function App() {
           console.log(viewport.isMounting(), viewport.isMounted());
         }
 
-        // await viewport.mount();
-        console.log('mounted??');
         if (viewport.bindCssVars.isAvailable()) {
-          console.log("available");
           viewport.bindCssVars();
         }
-      } else {
-        console.log('not');
       }
     })();
   }, []);
