@@ -43,19 +43,19 @@ export function ItemCarousel({ ref, id, slides, options, children }) {
 
   const onSelect = useCallback(() => {
     if (!emblaMainApi || !emblaThumbsApi) return
-    setSelectedIndex(emblaMainApi.selectedScrollSnap())
-    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
+    setSelectedIndex(emblaMainApi.selectedScrollSnap());
+    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
   }, [emblaMainApi, emblaThumbsApi, setSelectedIndex])
 
   useEffect(() => {
     if (!emblaMainApi) return
-    onSelect()
+    onSelect();
 
     emblaMainApi.on('select', onSelect).on('reInit', onSelect)
   }, [emblaMainApi, onSelect])
 
   return (
-    <div className="embla">
+    <div className="embla" key={id}>
       <div className="embla__viewport" ref={rf => {
         ref.current = rf;
         emblaMainRef!(rf);

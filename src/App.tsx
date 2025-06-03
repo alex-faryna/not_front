@@ -1,7 +1,7 @@
 import './App.css'
 import './Embla.css'
 import {useActiveImage, useItem, usePage} from "./state/state.ts";
-import {useEffect, useRef, useState} from "react";
+import {act, useEffect, useRef, useState} from "react";
 import {backButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
@@ -17,20 +17,21 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 
   useEffect(() => {
     if(!to || !from) return;
-    console.log(from, to);
+    // console.log(from, to);
     const _from = from.getBoundingClientRect();
     const _to = to.getBoundingClientRect();
 
+    /*
     console.log(_from, _to);
-
     console.log(_from.width / _to.width);
     console.log(_from.height / _to.height);
+     */
 
     hero.current.animate([
       {
         borderRadius: '16px',
         visibility: 'visible',
-        transform: `translate(${_from.left}px, ${_from.top}px)`,
+        transform: `translate(${_from.left}px, ${_from.top}px)`, // - half of item mb
         width: `${_from.width}px`,
         height: `${_from.height}px`,
         // scale(${_from.width / _to.width}, ${_from.height / _to.height})
@@ -54,7 +55,6 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 function App() {
   const {page, setPage} = usePage();
   const { item, select } = useItem();
-
 
   useEffect(() => {
     (async () => {
