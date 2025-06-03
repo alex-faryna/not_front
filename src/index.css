@@ -29,13 +29,8 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
+    min-height: 0;
 }
-
-body {
-    padding-bottom: var(--tg-viewport-safe-area-inset-bottom, 0);
-    padding-top: calc(var(--tg-viewport-safe-area-inset-top, 0) + var(--tg-viewport-content-safe-area-inset-top, 0));
-}
-
 
 a {
   font-weight: 500;
