@@ -1,12 +1,19 @@
 import './App.css'
 import './Embla.css'
+import '@telegram-apps/telegram-ui/dist/styles.css';
 import {useActiveImage, useItem, usePage} from "./state/state.ts";
 import {useEffect, useRef, useState} from "react";
-import {backButton, viewport} from "@telegram-apps/sdk-react";
+import {backButton, settingsButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
 import {HomePage} from "./pages/home.tsx";
 import {Menu} from "./ui/menu.tsx";
+import {AppRoot, Button, Modal, Placeholder, Switch, Title} from "@telegram-apps/telegram-ui";
+import {
+  ModalHeader
+} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
+import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
+import {ModalClose} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalClose/ModalClose";
 
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
@@ -60,6 +67,7 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 function App() {
   const {page, setPage} = usePage();
   const { item, select } = useItem();
+  const [settings, setSettings] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -69,10 +77,7 @@ function App() {
           const promise = viewport.mount();
           await promise;
         } catch (err) {
-          console.log('133');
           console.log(err);
-          console.log(viewport.mountError());
-          console.log(viewport.isMounting(), viewport.isMounted());
         }
 
         if (viewport.bindCssVars.isAvailable()) {
@@ -80,6 +85,13 @@ function App() {
         }
       }
     })();
+  }, []);
+
+  useEffect(() => {
+    if (settingsButton.onClick.isAvailable()) {
+      const offClick = settingsButton.onClick(() => setSettings(val => !val));
+      return () => offClick();
+    }
   }, []);
 
   useEffect(() => {
@@ -111,7 +123,9 @@ function App() {
     }
   }, [heroAnimation]);
 
-  return <div className='main'>
+  const [motion, setMotion] = useState(true);
+
+  return <AppRoot className='main'>
     <div className='main-layout'>
       <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
         <HomePage isAnimating={heroAnimation} onSelect={(item, elem) => {
@@ -132,7 +146,20 @@ function App() {
     </div>
     <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
     <Menu />
-  </div>;
+
+    <Modal onOpenChange={setSettings} header={<ModalHeader after={
+      <Icon28Close onClick={() => setSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
+    }></ModalHeader> as any}
+      open={settings}
+    >
+      <div className='flex flex-col gap-2'>
+        <div className='flex items-center justify-between'>
+          <span>Motion</span>
+          <Switch checked={motion} onChange={() => setMotion(val => !val)} />
+        </div>
+      </div>
+    </Modal>
+  </AppRoot>
 }
 
 export default App
