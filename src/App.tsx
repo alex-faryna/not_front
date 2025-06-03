@@ -143,9 +143,9 @@ function App() {
       <div className='profile-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
         <ProfilePage/>
       </div>
+      <Menu />
     </div>
     <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
-    <Menu />
 
     <Modal onOpenChange={setShowSettings} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
