@@ -17,29 +17,37 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 
   useEffect(() => {
     if(!to || !from) return;
-    // console.log(from, to);
     const _from = from.getBoundingClientRect();
     const _to = to.getBoundingClientRect();
 
-    /*
-    console.log(_from, _to);
-    console.log(_from.width / _to.width);
-    console.log(_from.height / _to.height);
-     */
-
     const heroElement = hero.current.firstChild as HTMLImageElement;
-    heroElement.style.width = `${_to.width}px`;
-    heroElement.style.height = `${_to.height}px`;
-    heroElement.animate([
-      {
-        borderRadius: '16px',
-        transform: `translate(${_from.left}px, ${_from.top}px) scale(${_from.width / _to.width}, ${_from.height / _to.height})`, // - half of item mb
-      },
-      {
-        borderRadius: '20px',
-        transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1, 1)`,
-      }
-    ], {duration: 400, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
+    if (forward) {
+      heroElement.style.width = `${_to.width}px`;
+      heroElement.style.height = `${_to.height}px`;
+      heroElement.animate([
+        {
+          borderRadius: '16px',
+          transform: `translate(${_from.left}px, ${_from.top}px) scale(${_from.width / _to.width}, ${_from.height / _to.height})`, // - half of item mb
+        },
+        {
+          borderRadius: '20px',
+          transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1, 1)`,
+        }
+      ], {duration: 400, easing: 'ease-out', fill: 'both' });
+    } else {
+      heroElement.style.width = `${_from.width}px`;
+      heroElement.style.height = `${_from.height}px`;
+      heroElement.animate([
+        {
+          borderRadius: '20px',
+          transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(${_to.width / _from.width}, ${_to.height / _from.height})`, // - half of item mb
+        },
+        {
+          borderRadius: '16px',
+          transform: `translate(${_from.left}px, ${_from.top}px) scale(1, 1)`,
+        },
+      ], {duration: 400, easing: 'ease-out', fill: 'both' });
+    }
   }, [isAnimating]);
 
   if(!item) return null;
