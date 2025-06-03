@@ -23,7 +23,7 @@ export function ProfilePage() {
     { history.length ? <div className='flex flex-col items-start h-[50%] p-2'>
       <span className='text-2xl'>History</span>
       <div className='flex flex-col h-100 w-100 overflow-auto gap-2'>
-        { historyFull.slice(0, 3).map(({ id, timestamp, item, total, currency}) => <div key={`${timestamp}-${id}`} className='flex items-center gap-2'>
+        { historyFull.slice(0, 3).map(({ id, timestamp, item, total, currency}) => item?.images?.length && <div key={`${timestamp}-${id}`} className='flex items-center gap-2'>
           <img src={item.images[0]} alt={`Item ${item.name}`} width={60} height={60} className='h-[60px] rounded-[12px]' />
           <div className='flex flex-col'>
             <span>{ item.category }</span>

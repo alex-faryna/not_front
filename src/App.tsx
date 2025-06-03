@@ -1,6 +1,6 @@
 import './App.css'
 import './Embla.css'
-import {useItem, usePage} from "./state/state.ts";
+import {useActiveImage, useItem, usePage} from "./state/state.ts";
 import {useEffect, useRef, useState} from "react";
 import {backButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
@@ -13,28 +13,41 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
   const forward = page === 'item';
   const hero = useRef<HTMLDivElement>(null as HTMLDivElement);
   const { item } = useItem();
+  const { activeImages } = useActiveImage();
 
   useEffect(() => {
     if(!to || !from) return;
+    console.log(from, to);
     const _from = from.getBoundingClientRect();
     const _to = to.getBoundingClientRect();
+
+    console.log(_from, _to);
+
+    console.log(_from.width / _to.width);
+    console.log(_from.height / _to.height);
 
     hero.current.animate([
       {
         borderRadius: '16px',
         visibility: 'visible',
-        transform: `translate(${_from.left - _from.width / 2}px, ${_from.top - _from.width / 2}px) scale(${_from.width / _to.width})`,
+        transform: `translate(${_from.left}px, ${_from.top}px)`,
+        width: `${_from.width}px`,
+        height: `${_from.height}px`,
+        // scale(${_from.width / _to.width}, ${_from.height / _to.height})
       },
       {
         borderRadius: '20px',
         visibility: 'visible',
-        transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1)`
+        transform: `translate(${to.offsetLeft}px, ${_to.top}px)`,
+        width: `${_to.width}px`,
+        height: `${_to.height}px`,
+        // scale(1, 1)
       }
     ], {duration: 250, easing: 'ease-out', fill: 'both', direction: forward ? 'normal' : 'reverse'});
   }, [isAnimating]);
 
   return <div style={{opacity: isAnimating ? '1' : '0'}} ref={hero} className='hero-item'>
-    { item && <img src={item.images[0]} alt={`Item ${item.name}`} /> }
+    { item && <img src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} className='rounded-[20px]' /> }
   </div>
 }
 

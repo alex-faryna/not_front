@@ -35,7 +35,7 @@ export function ItemPage({ref, isAnimating}) {
       {item && <ItemInfo item={item}/>}
 
       <ItemCarousel ref={ref} id={item.id} slides={item.images.map((_, idx) => idx)} options={{ }}>
-        { index => <div className='www w-100 relative'>
+        { (index, main) => <div className='www w-100 relative' style={{opacity: main && isAnimating ? '0' : '1'}}>
           <img className='absolute top-0 left-0 w-full h-full rounded-[20px]' src={item.images[index]} />
         </div> }
       </ItemCarousel>
