@@ -1,7 +1,12 @@
 import {useActiveImage, useCart, useItems, usePage} from "../state/state.ts";
-import {MouseEvent, useEffect} from "react";
+import {MouseEvent, useEffect, useState} from "react";
 import checkIcon from '../assets/check.svg'
 import {Header} from "../ui/header.tsx";
+import {
+  ModalHeader
+} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
+import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
+import {Modal, Placeholder} from "@telegram-apps/telegram-ui";
 
 export function HomePage({ onSelect, isAnimating }) {
   const { setPage } = usePage();

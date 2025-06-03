@@ -1,7 +1,7 @@
 import './App.css'
 import './Embla.css'
 import '@telegram-apps/telegram-ui/dist/styles.css';
-import {useActiveImage, useItem, usePage} from "./state/state.ts";
+import {useActiveImage, useCart, useItem, usePage} from "./state/state.ts";
 import {useEffect, useRef, useState} from "react";
 import {backButton, settingsButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
@@ -67,7 +67,7 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
 function App() {
   const {page, setPage} = usePage();
   const { item, select } = useItem();
-  const [settings, setSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -89,7 +89,7 @@ function App() {
 
   useEffect(() => {
     if (settingsButton.onClick.isAvailable()) {
-      const offClick = settingsButton.onClick(() => setSettings(val => !val));
+      const offClick = settingsButton.onClick(() => setShowSettings(val => !val));
       return () => offClick();
     }
   }, []);
@@ -147,10 +147,10 @@ function App() {
     <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
     <Menu />
 
-    <Modal onOpenChange={setSettings} header={<ModalHeader after={
-      <Icon28Close onClick={() => setSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
+    <Modal onOpenChange={setShowSettings} header={<ModalHeader after={
+      <Icon28Close onClick={() => setShowSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
     }></ModalHeader> as any}
-      open={settings}
+      open={showSettings}
     >
       <div className='flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
