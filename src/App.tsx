@@ -1,4 +1,5 @@
 import './App.css'
+import './Embla.css'
 import {useItem, usePage} from "./state/state.ts";
 import {useEffect, useRef, useState} from "react";
 import {backButton, viewport} from "@telegram-apps/sdk-react";
@@ -6,7 +7,6 @@ import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
 import {HomePage} from "./pages/home.tsx";
 import {Menu} from "./ui/menu.tsx";
-import {Header} from "./ui/header.tsx";
 
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
