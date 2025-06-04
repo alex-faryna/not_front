@@ -53,7 +53,7 @@ export const useShopStore = create<ShopState>()((set) => ({
     const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/items.json');
     const { data: items } = await response.json();
     console.log(items);
-    set(() => ({ items, loading: false, selected: items?.[0]?.id || -1 }));
+    set(() => ({ items, loading: false }));
   },
 
   cart: {},

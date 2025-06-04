@@ -30,9 +30,9 @@ export function HomePage({ onSelect, isAnimating }) {
       <div className='grid'>
         {items.map((item) => (
           <div key={item.id} className='item relative' onClick={event => onClick(item.id, event)}>
-            <Carousel id={item.id} slides={item.images.map((_, idx) => idx)}>
+            <Carousel id={item.id} slides={item.images.map((_, idx) => idx + 1)}>
               { index => <div className='relative w-full h-full aspect-square'>
-                <img className='absolute top-0 left-0 w-full h-full rounded-[20px]' src={item.images[index]} />
+                <img className='absolute top-0 left-0 w-full h-full rounded-[20px]' src={item.images[index - 1]} />
               </div> }
             </Carousel>
             { /* <img className='img' src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} /> */ }
