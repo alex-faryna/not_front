@@ -10,10 +10,20 @@ import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
 import {Button, IconButton, Modal, Placeholder} from "@telegram-apps/telegram-ui";
 
 export function Header() {
-  const { cart } = useCart();
+  const { cart, removeFromCart } = useCart();
   const { items } = useItems();
   const [showCart, setShowCart] = useState(false);
   const cartQuantity = Object.keys(cart).reduce((acc, curr) => acc + +!!cart[curr], 0);
+  const totalCartQuantity = Object.keys(cart).reduce((acc, curr) => acc + (cart[curr] || 0), 0);
+
+  const removeItem = (id: number) => {
+    if(totalCartQuantity <= 1) {
+      setShowCart(false);
+    }
+    setTimeout(() => {
+      removeFromCart(id);
+    });
+  }
 
   return <>
     <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center' style={{ flex: '0 0 60px' }}>
@@ -42,9 +52,11 @@ export function Header() {
                 <span>{ item.name }</span>
               </div>
               <span className='text-lg ml-auto'>{ item.price } { item.currency }</span>
+              <span>x { cart[item.id] }</span>
               <IconButton
                 mode="gray"
                 size="m"
+                onClick={() => removeItem(item.id)}
               >
                 <img src={minusIcon} width={14} height={2} />
               </IconButton>
