@@ -7,6 +7,7 @@ import {
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
 import {Modal, Placeholder} from "@telegram-apps/telegram-ui";
+import {Carousel} from "../ui/carousel.tsx";
 
 export function HomePage({ onSelect, isAnimating }) {
   const { setPage } = usePage();
@@ -29,7 +30,12 @@ export function HomePage({ onSelect, isAnimating }) {
       <div className='grid'>
         {items.map((item) => (
           <div key={item.id} className='item relative' onClick={event => onClick(item.id, event)}>
-            <img className='img' src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} />
+            <Carousel id={item.id} slides={item.images.map((_, idx) => idx)}>
+              { index => <div className='relative w-full h-full aspect-square'>
+                <img className='absolute top-0 left-0 w-full h-full rounded-[20px]' src={item.images[index]} />
+              </div> }
+            </Carousel>
+            { /* <img className='img' src={item.images[activeImages[item.id] || 0]} alt={`Item ${item.name}`} /> */ }
             { cart[item.id] && <div className={`transition-opacity rounded-full bg-white h-[22px] w-[22px] absolute top-[8px] right-[8px] flex items-center justify-center ${isAnimating ? 'opacity-0' : ''}`}>
               <img src={checkIcon} alt='Added to cart' width={12} height={12} />
             </div> }
