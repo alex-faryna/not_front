@@ -27,6 +27,10 @@ export interface ShopState {
   items: Item[],
   loadItems: () => void,
 
+  searchQuery: string;
+  search: (val: string) => void;
+  clearSearch: () => void;
+
   cart: Record<number, number>;
   addToCart: (id: number) => void;
   removeFromCart: (id: number) => void;
@@ -55,6 +59,10 @@ export const useShopStore = create<ShopState>()((set) => ({
     console.log(items);
     set(() => ({ items, loading: false }));
   },
+
+  searchQuery: '',
+  search: (searchQuery: string) => set(() => ({ searchQuery })),
+  clearSearch: () => set(() => ({ searchQuery: '' })),
 
   cart: {},
   // check for how many left
@@ -116,4 +124,8 @@ export const useHistory = () => useShopStore(
 
 export const useActiveImage = () => useShopStore(
   useShallow(({ activeImages, setActiveImage }: ShopState) => ({ activeImages, setActiveImage })),
+);
+
+export const useSearch = () => useShopStore(
+  useShallow(({ searchQuery, search, clearSearch }: ShopState) => ({ searchQuery, search, clearSearch })),
 );

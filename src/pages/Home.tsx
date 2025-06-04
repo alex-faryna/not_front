@@ -1,4 +1,4 @@
-import {useCart, useItems, usePage} from "../state/state.ts";
+import {useCart, useItems, usePage, useSearch} from "../state/state.ts";
 import {useEffect, useRef} from "react";
 import checkIcon from '../assets/check.svg'
 import {Header} from "../ui/header.tsx";
@@ -29,6 +29,7 @@ function Item({ item, onClick, isAnimating }) {
 export function HomePage({ onSelect, isAnimating }) {
   const { setPage } = usePage();
   const { items, loadItems } = useItems();
+  const { searchQuery } = useSearch();
   useEffect(() => void loadItems(), []);
 
   const onClick = (item: number, target: HTMLImageElement) => {
@@ -41,7 +42,7 @@ export function HomePage({ onSelect, isAnimating }) {
     <Header />
     <div className='grid-container'>
       <div className='grid'>
-        {items.map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />)}
+        {items.filter(item => item.name.includes(searchQuery)).map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />)}
       </div>
     </div>
   </div>

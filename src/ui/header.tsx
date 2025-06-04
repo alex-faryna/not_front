@@ -1,13 +1,21 @@
 import cartIcon from "../assets/cart.svg";
 import searchIcon from '../assets/search.svg';
 import minusIcon from '../assets/minus.svg';
-import {useCart, useItems} from "../state/state.ts";
+import {useCart, useItems, useSearch} from "../state/state.ts";
 import {useState} from "react";
 import {
   ModalHeader
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
-import {Button, IconButton, Modal, Placeholder} from "@telegram-apps/telegram-ui";
+import {Button, IconButton, Input, Modal, Placeholder} from "@telegram-apps/telegram-ui";
+
+function Search() {
+  const { searchQuery, search } = useSearch();
+
+  return <div className='w-full h-full bg-black-500'>
+    <input className='input' type='search' value={searchQuery} onChange={val => search(val.target.value)} />
+  </div>
+}
 
 export function Header() {
   const { cart, removeFromCart } = useCart();
@@ -21,12 +29,15 @@ export function Header() {
       setShowCart(false);
     }
     setTimeout(() => {
-      removeFromCart(id);
+      removeFromCart(id); // TODO: animation here
     });
   }
 
   return <>
-    <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center' style={{ flex: '0 0 60px' }}>
+    <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
+      <div className='absolute top-0 left-0 w-full h-full'>
+        <Search />
+      </div>
       <span className='text-xl mr-auto'>Not Store</span>
       <img src={searchIcon} alt='Search' width={22} height={22} />
       { cartQuantity
