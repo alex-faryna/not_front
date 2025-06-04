@@ -2,7 +2,7 @@ import {useActiveImage} from "../state/state.ts";
 import {useCallback, useEffect, useMemo} from "react";
 import useEmblaCarousel from "embla-carousel-react";
 
-export function Carousel({ id, slides, options, children }) {
+export function Carousel({ ref, id, slides, options, children }) {
   const { activeImages, setActiveImage } = useActiveImage();
   const selectedIndex = useMemo(() => Math.max(0, Math.min(activeImages[id] || 0, slides.length)), [id, activeImages]);
   const setSelectedIndex = useCallback((index: number) => setActiveImage(id, index), [id, setActiveImage]);
@@ -11,7 +11,6 @@ export function Carousel({ id, slides, options, children }) {
 
   useEffect(() => {
     if (!emblaMainApi || selectedIndex === emblaMainApi.selectedScrollSnap()) return;
-    console.log('sce');
     emblaMainApi.scrollTo(selectedIndex)
   }, [emblaMainApi, selectedIndex]);
 
@@ -29,7 +28,10 @@ export function Carousel({ id, slides, options, children }) {
 
   return (
     <div className="embla">
-      <div className="embla__viewport" ref={emblaMainRef}>
+      <div className="embla__viewport" ref={rf => {
+        ref.current = rf;
+        emblaMainRef!(rf);
+      }}>
         <div className="embla__container">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
