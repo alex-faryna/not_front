@@ -7,7 +7,7 @@ import {
   ModalHeader
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
-import {Button, IconButton, Input, Modal, Placeholder} from "@telegram-apps/telegram-ui";
+import {Button, IconButton, Modal, Placeholder, Title} from "@telegram-apps/telegram-ui";
 
 function Search() {
   const { searchQuery, search } = useSearch();
@@ -23,6 +23,9 @@ export function Header() {
   const [showCart, setShowCart] = useState(false);
   const cartQuantity = Object.keys(cart).reduce((acc, curr) => acc + +!!cart[curr], 0);
   const totalCartQuantity = Object.keys(cart).reduce((acc, curr) => acc + (cart[curr] || 0), 0);
+  const cartCost = Object.keys(cart)
+    .filter(item => cart[item] > 0)
+    .reduce((acc, curr) => acc + cart[curr] * (items.find(item => `${item.id}` === `${curr}`)?.price || 0), 0);
 
   const removeItem = (id: number) => {
     if(totalCartQuantity <= 1) {
@@ -35,11 +38,11 @@ export function Header() {
 
   return <>
     <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
-      <div className='absolute top-0 left-0 w-full h-full'>
+      { /* <div className='absolute top-0 left-0 w-full h-full'>
         <Search />
-      </div>
-      <span className='text-xl mr-auto'>Not Store</span>
-      <img src={searchIcon} alt='Search' width={22} height={22} />
+      </div> */ }
+      <Title weight="2">Not Store</Title>
+      <img src={searchIcon} alt='Search' width={22} height={22} className='ml-auto' />
       { cartQuantity
         ? <div className={`rounded-full bg-white h-[22px] w-[22px] flex items-center justify-center`}
                onClick={() => setShowCart(true)}>
@@ -72,11 +75,14 @@ export function Header() {
                 <img src={minusIcon} width={14} height={2} />
               </IconButton>
             </div>) }
+            <Button mode="filled" size="l" stretched={true}>
+              Buy for { cartCost }
+            </Button>
           </div>
           : <>
             <Placeholder header="Cart's cold"
                          description="No items yet" ></Placeholder>
-            <Button onClick={() => setShowCart(false)} size="m">OK</Button>
+            <Button onClick={() => setShowCart(false)} size="l">OK</Button>
           </> }
       </div>
     </Modal>

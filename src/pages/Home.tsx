@@ -3,7 +3,7 @@ import {useEffect, useRef} from "react";
 import checkIcon from '../assets/check.svg'
 import {Header} from "../ui/header.tsx";
 import {Carousel} from "../ui/carousel.tsx";
-import {Button} from "@telegram-apps/telegram-ui";
+import {Button, Text} from "@telegram-apps/telegram-ui";
 
 function Item({ item, onClick, isAnimating }) {
   const { cart } = useCart();
@@ -18,10 +18,12 @@ function Item({ item, onClick, isAnimating }) {
     { cart[item.id] && <div className={`transition-opacity rounded-full bg-white h-[22px] w-[22px] absolute top-[8px] right-[8px] flex items-center justify-center ${isAnimating ? 'opacity-0' : ''}`}>
       <img src={checkIcon} alt='Added to cart' width={12} height={12} />
     </div> }
-    <span className='text-xl'>{ item.name }</span>
-    <div className='flex gap-2'>
-      <span className='text-xl'>{ item.price }</span>
-      <span className='text-xl'>{ item.currency }</span>
+    <div className='p-1 flex flex-col items-start'>
+      <Text weight="2">{ item.name }</Text>
+      <div className='flex gap-1'>
+        <Text>{ item.price }</Text>
+        <Text>{ item.currency }</Text>
+      </div>
     </div>
   </div>
 }

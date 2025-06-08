@@ -1,26 +1,26 @@
 import {useCart, useItem} from "../state/state.ts";
 import {ItemCarousel} from "../ui/item-carousel.tsx";
-import {Button} from "@telegram-apps/telegram-ui";
+import {Button, Caption, Title} from "@telegram-apps/telegram-ui";
 
 function ItemInfo({item}) {
 
   return <div className='flex flex-col gap-2 items-start'>
-    <span className='text-2xl'>{item.name}</span>
+    <Title weight="2">{ item.name }</Title>
     <span className='text-lg'>{item.description}</span>
     <div className='flex gap-2 items-center'>
-      <div className='flex gap1'>
-        <span>{item.price}</span>
-        <span>{item.currency}</span>
+      <div className='flex items-center gap1 rounded-[10px] h-[18px]' style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px' }}>
+        <Caption>{item.price}</Caption>
+        <Caption>{item.currency}</Caption>
       </div>
 
-      <div className='flex gap1'>
-        <span>{item.left}</span>
-        <span>Left</span>
+      <div className='flex gap1 items-center rounded-[10px] h-[18px]' style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px' }}>
+        <Caption>{item.left}</Caption>
+        <Caption>Left</Caption>
       </div>
 
       {item.tags?.['fabric'] && (
-        <div className='flex gap1'>
-          <span>{item.tags.fabric}</span>
+        <div className='flex gap1 items-center rounded-[10px] h-[18px]' style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px' }}>
+          <Caption>{item.tags.fabric}</Caption>
         </div>
       )}
     </div>
@@ -32,7 +32,7 @@ export function ItemPage({ref, isAnimating}) {
   const {cart, addToCart, removeFromCart} = useCart();
 
   return <>
-    <div className='page item'>
+    <div className='page item gap-3'>
       {item && <ItemInfo item={item}/>}
 
       <ItemCarousel key={item.id} ref={ref} id={item.id} slides={item.images.map((_, idx) => idx)} options={{ }}>
@@ -48,7 +48,7 @@ export function ItemPage({ref, isAnimating}) {
               <div className='flex gap-1 w-full rounded-[12px] items-center justify-center h-[50px]'
                    style={{ background: 'rgba(255, 255, 255, 0.08)' }}>
                 <span className='cursor-pointer select-none' onClick={() => removeFromCart(item.id)}>-</span>
-                <span className='flex items-center justify-center w-[2em] select-none cursor-default'>{cart[item.id]}</span>
+                <span className='flex items-center justify-center w-[3.5em] select-none cursor-default'>{cart[item.id]}</span>
                 <span className='cursor-pointer select-none' onClick={() => addToCart(item.id)}>+</span>
               </div>
             )
