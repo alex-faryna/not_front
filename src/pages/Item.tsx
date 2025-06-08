@@ -1,5 +1,6 @@
 import {useCart, useItem} from "../state/state.ts";
 import {ItemCarousel} from "../ui/item-carousel.tsx";
+import {Button} from "@telegram-apps/telegram-ui";
 
 function ItemInfo({item}) {
 
@@ -40,22 +41,29 @@ export function ItemPage({ref, isAnimating}) {
         </div> }
       </ItemCarousel>
 
-      <div className='flex gap-2 justify-around'>
+      <div className='flex gap-2 justify-around w-full'>
         {
           (cart[item.id] || 0)
           ? (
-              <div className='flex gap-1'>
-                <span onClick={() => removeFromCart(item.id)}>-</span>
-                <span>{cart[item.id]}</span>
-                <span onClick={() => addToCart(item.id)}>+</span>
+              <div className='flex gap-1 w-full rounded-[12px] items-center justify-center h-[50px]'
+                   style={{ background: 'rgba(255, 255, 255, 0.08)' }}>
+                <span className='cursor-pointer select-none' onClick={() => removeFromCart(item.id)}>-</span>
+                <span className='flex items-center justify-center w-[2em] select-none cursor-default'>{cart[item.id]}</span>
+                <span className='cursor-pointer select-none' onClick={() => addToCart(item.id)}>+</span>
               </div>
             )
-          : <span onClick={() => {
-            addToCart(item.id);
-            console.log(item.id);
-          }}>Add to cart</span>
+          :
+            <div className='w-full h-full'>
+              <Button mode="filled" size="l" stretched={true} onClick={() => addToCart(item.id)}>
+                Add to cart
+              </Button>
+            </div>
         }
-        <span>Buy now</span>
+        <div className='w-full h-full'>
+          <Button mode="filled" size="l" stretched={true}>
+            Buy now
+          </Button>
+        </div>
       </div>
     </div>
   </>

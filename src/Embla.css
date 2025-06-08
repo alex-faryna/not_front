@@ -137,6 +137,6 @@
     img {
         box-sizing: border-box;
         color: var(--text-body);
-        border: 2px solid yellowgreen;
+        border: 2px solid white;
     }
 }

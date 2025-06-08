@@ -33,13 +33,9 @@ export function ItemCarousel({ ref, id, slides, options, children }) {
     dragFree: true,
   });
 
-  console.log('dddd', id);
-
   const once = useRef(true);
   useEffect(() => {
-    console.log('aa', activeImages[id]);
     if (emblaMainApi && emblaThumbsApi && activeImages[id] && once.current) {
-      console.log('test');
       once.current = false;
       onThumbClick(activeImages[id], true);
     }

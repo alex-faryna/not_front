@@ -125,10 +125,6 @@ function App() {
 
   const [motion, setMotion] = useState(true);
 
-  useEffect(() => {
-    console.log(document.getElementById('root')?.parentElement.parentElement.getBoundingClientRect());
-  }, []);
-
   return <AppRoot className='main'>
     <div className='main-layout'>
       <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
