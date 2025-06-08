@@ -32,6 +32,12 @@
     min-height: 0;
 }
 
+#root {
+    padding-bottom: var(--tg-viewport-safe-area-inset-bottom, 0);
+    padding-top: calc(var(--tg-viewport-safe-area-inset-top, 0) + var(--tg-viewport-content-safe-area-inset-top, 0));
+    height: 100% !important;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

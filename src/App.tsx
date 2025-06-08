@@ -14,6 +14,7 @@ import {
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
 import {ModalClose} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalClose/ModalClose";
+import {Header} from "./ui/header.tsx";
 
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
   const {page} = usePage();
@@ -125,9 +126,11 @@ function App() {
 
   const [motion, setMotion] = useState(true);
 
-  return <AppRoot className='main'>
-    <div className='main-layout'>
-      <div className='main-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
+  return <AppRoot className='_main-container flex flex-col h-full relative overflow-hidden'>
+    <div className='flex grow-1 overflow-hidden w-[200vw] justify-stretch relative _main-container'
+         style={{transform: `translateX(${page === 'profile' ? '-100vw' : '0'})`}}>
+      <div className='flex flex-col grow-1 w-[100vw] h-full'>
+        <Header />
         <HomePage isAnimating={heroAnimation} onSelect={(item, elem) => {
           select(item);
           setTimeout(() => {
@@ -136,21 +139,21 @@ function App() {
           });
         }}/>
       </div>
-      <div className='side-container' onTransitionEnd={() => setHeroAnimation(false)}
-           style={{transform: `translateX(${page === 'item' ? '-100%' : '0'})`}}>
-        { item && <ItemPage ref={hero} isAnimating={heroAnimation}/> }
+      <div className='flex flex-col grow-1 w-[100vw] relative h-full max-h-full'>
+        <ProfilePage />
       </div>
-      <div className='profile-container' style={{transform: `translateX(${page === 'profile' ? '-100%' : '0'})`}}>
-        <ProfilePage/>
-      </div>
-      <Menu />
     </div>
-    <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current}/>
-
+    <Menu />
+    <div className='absolute left-[100vw] top-0 w-full h-full bg-orange-500 _side-container'
+         onTransitionEnd={() => setHeroAnimation(false)}
+         style={{transform: `translateX(${page === 'item' ? '-100%' : '0'})`}}>
+      { item && <ItemPage ref={hero} isAnimating={heroAnimation}/> }
+    </div>
+    <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current} />
     <Modal onOpenChange={setShowSettings} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
     }></ModalHeader> as any}
-      open={showSettings}
+           open={showSettings}
     >
       <div className='flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
@@ -159,7 +162,7 @@ function App() {
         </div>
       </div>
     </Modal>
-  </AppRoot>
+  </AppRoot>;
 }
 
 export default App
