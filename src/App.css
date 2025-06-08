@@ -31,37 +31,8 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
-}
-
-.main {
-    min-height: 0;
-    width: 100vw;
-    height: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.main-layout {
-    width: 200vw;
-    height: var(--tg-viewport-stable-height, 100%) !important;
-    max-width: 200vw;
-    display: grid;
-    grid-template-areas: 'main secondary';
-    overflow: hidden;
-    min-height: 0;
-}
-
-.menu {
-    display: flex;
-    justify-content: space-around;
 }
 
 ._main-container {
@@ -201,5 +172,4 @@
     box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
     background-color: white;
 }]
-
  */

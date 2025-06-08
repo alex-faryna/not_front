@@ -1,6 +1,6 @@
 import {useCart, useItem} from "../state/state.ts";
 import {ItemCarousel} from "../ui/item-carousel.tsx";
-import {Button, Caption, Title} from "@telegram-apps/telegram-ui";
+import {Button, Caption, Text, Title} from "@telegram-apps/telegram-ui";
 
 function ItemInfo({item}) {
 
@@ -47,9 +47,9 @@ export function ItemPage({ref, isAnimating}) {
           ? (
               <div className='flex gap-1 w-full rounded-[12px] items-center justify-center h-[50px]'
                    style={{ background: 'rgba(255, 255, 255, 0.08)' }}>
-                <span className='cursor-pointer select-none' onClick={() => removeFromCart(item.id)}>-</span>
-                <span className='flex items-center justify-center w-[3.5em] select-none cursor-default'>{cart[item.id]}</span>
-                <span className='cursor-pointer select-none' onClick={() => addToCart(item.id)}>+</span>
+                <Text weight="1" className='cursor-pointer select-none' onClick={() => removeFromCart(item.id)}>-</Text>
+                <Text weight="1" className='flex items-center justify-center w-[3.5em] select-none cursor-default'>{cart[item.id]}</Text>
+                <Text weight="1" className='cursor-pointer select-none' onClick={() => addToCart(item.id)}>+</Text>
               </div>
             )
           :

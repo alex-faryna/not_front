@@ -1,19 +1,18 @@
 import './App.css'
 import './Embla.css'
 import '@telegram-apps/telegram-ui/dist/styles.css';
-import {useActiveImage, useCart, useItem, usePage} from "./state/state.ts";
+import {useActiveImage, useItem, usePage} from "./state/state.ts";
 import {useEffect, useRef, useState} from "react";
 import {backButton, settingsButton, viewport} from "@telegram-apps/sdk-react";
 import {ProfilePage} from "./pages/profile.tsx";
 import {ItemPage} from "./pages/item.tsx";
 import {HomePage} from "./pages/home.tsx";
 import {Menu} from "./ui/menu.tsx";
-import {AppRoot, Button, Modal, Placeholder, Switch, Title} from "@telegram-apps/telegram-ui";
+import {AppRoot, Modal, Switch} from "@telegram-apps/telegram-ui";
 import {
   ModalHeader
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
-import {ModalClose} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalClose/ModalClose";
 import {Header} from "./ui/header.tsx";
 
 function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDivElement }) {
@@ -152,9 +151,7 @@ function App() {
     <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current} />
     <Modal onOpenChange={setShowSettings} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
-    }></ModalHeader> as any}
-           open={showSettings}
-    >
+    }></ModalHeader> as any} open={showSettings}>
       <div className='flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
           <span>Motion</span>

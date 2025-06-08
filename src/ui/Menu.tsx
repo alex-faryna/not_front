@@ -15,7 +15,7 @@ export function Menu() {
     .reduce((acc, curr) => acc + cart[curr] * (items.find(item => `${item.id}` === `${curr}`)?.price || 0), 0);
 
   return cartQuantity ? (
-    <div className='w-full min-h-[58px]'>
+    <div className='w-full min-h-[58px] p-2 pt-0'>
       <Button mode="filled" size="l" stretched={true}>
         Buy for { cartCost }
       </Button>
