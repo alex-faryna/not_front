@@ -25,14 +25,11 @@ function Search() {
     <div className='flex gap-2 items-center input-container grow-1'>
       <img src={searchIcon} alt='Search' width={16} height={16} />
       <input ref={ref} className='input w-full' type='text' value={searchQuery} onChange={val => doSearch(val.target.value)} placeholder='Search' />
-      { searchQuery && <IconButton mode='plain' size='s' onClick={clearSearch}>
+      { searchQuery && <IconButton mode='plain' size='s' onClick={clearSearch} className='secondary-button'>
         <Icon16Cancel/>
       </IconButton> }
     </div>
-    <Button onClick={() => {
-      clearSearch();
-      setSearch(false);
-    }} size='s' mode='plain'>
+    <Button onClick={() => setSearch(false)} size='s' mode='plain' className='secondary-button'>
       <Text className='cursor-pointer'>Cancel</Text>
     </Button>
   </div>

@@ -65,10 +65,10 @@ export const useShopStore = create<ShopState>()((set) => ({
   },
 
   search: false,
-  setSearch: (search: boolean) => set(() => ({ search })),
+  setSearch: (search: boolean) => set(() => ({ search, ...(!search && { searchQuery: '' }) })),
   searchQuery: '',
   doSearch: (searchQuery: string) => set(() => ({ searchQuery })),
-  clearSearch: () => set(() => ({ searchQuery: '', search: false })),
+  clearSearch: () => set(() => ({ searchQuery: '' })),
 
   cart: {},
   // check for how many left

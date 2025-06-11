@@ -8,18 +8,18 @@ function ItemInfo({item}) {
     <Title weight="2">{ item.name }</Title>
     <span className='text-lg'>{item.description}</span>
     <div className='flex gap-2 items-center'>
-      <div className='flex items-center gap1 rounded-[10px] h-[18px]' style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px' }}>
+      <div className='flex items-center gap1 rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
         <Caption>{item.price}</Caption>
         <Caption>{item.currency}</Caption>
       </div>
 
-      <div className='flex gap1 items-center rounded-[10px] h-[18px]' style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px' }}>
+      <div className='flex gap1 items-center rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
         <Caption>{item.left}</Caption>
         <Caption>Left</Caption>
       </div>
 
       {item.tags?.['fabric'] && (
-        <div className='flex gap1 items-center rounded-[10px] h-[18px]' style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px' }}>
+        <div className='flex gap1 items-center rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
           <Caption>{item.tags.fabric}</Caption>
         </div>
       )}
