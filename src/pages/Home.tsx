@@ -20,7 +20,7 @@ function Item({ item, onClick, isAnimating }) {
       <Text weight="2">{ item.name }</Text>
       <div className='flex gap-1'>
         <Text>{ item.price }</Text>
-        <Text>{ item.currency }</Text>
+        <Text className='text-(--text-secondary)'>{ item.currency }</Text>
       </div>
     </div>
   </div>

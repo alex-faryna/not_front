@@ -29,6 +29,7 @@ body {
     --main-color-rgb: 0, 0, 0;
 
     --secondary-bg-color: rgba(0, 0, 0, 0.08);
+    --text-secondary: rgba(0, 0, 0, 0.5);
     --secondary-color: white;
 
     color: var(--main-color);
@@ -41,6 +42,7 @@ body {
     --main-color: white;
     --main-color-rgb: 255, 255, 255;
 
+    --text-secondary: rgba(255, 255, 255, 0.5);
     --secondary-bg-color: rgba(255, 255, 255, 0.08);
     --secondary-color: black;
   }
