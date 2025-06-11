@@ -2,6 +2,7 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import {backButton, closingBehavior, init, settingsButton, swipeBehavior, themeParams} from "@telegram-apps/sdk-react";
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 init();
 themeParams.mountSync();
@@ -27,5 +28,7 @@ if (backButton.mount.isAvailable()) {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <App />
+  <TonConnectUIProvider manifestUrl="http://localhost:5173/tonconnect-manifest.json">
+    <App />
+  </TonConnectUIProvider>
 )
