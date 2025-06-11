@@ -53,15 +53,21 @@ export interface ShopState {
   setPage: (val: string) => void;
 }
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 export const useShopStore = create<ShopState>()((set) => ({
   loading: false,
   items: [],
   loadItems: async () => {
     set(() => ({ loading: true }));
-    const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/items.json');
-    const { data: items } = await response.json();
-    console.log(items);
-    set(() => ({ items, loading: false }));
+    try {
+      const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/items.json');
+      const { data: items } = await response.json();
+      await delay(1000);
+      set(() => ({ items, loading: false }));
+    } catch (_: unknown) {
+      set(() => ({ loading: false }));
+    }
   },
 
   search: false,
@@ -90,10 +96,14 @@ export const useShopStore = create<ShopState>()((set) => ({
   history: [],
   loadHistory: async () => {
     set(() => ({ loadingHistory: true }));
-    const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/history.json');
-    const { data: history } = await response.json();
-    // TODO: catch error
-    set(() => ({ history, loadingHistory: false }));
+    try {
+      const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/history.json');
+      const { data: history } = await response.json();
+      await delay(1000);
+      set(() => ({ history, loadingHistory: false }));
+    } catch (_) {
+      set(() => ({ loadingHistory: false }));
+    }
   },
 
   selected: -1,

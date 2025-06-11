@@ -65,7 +65,7 @@ export function ItemPage({ref, isAnimating}) {
         }
         <div className='w-full h-full'>
           <Button mode="filled" size="l" stretched={true} onClick={purchase} className='main-button'>
-            Buy now 22
+            Buy now
           </Button>
         </div>
       </div>

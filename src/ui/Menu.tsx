@@ -18,7 +18,7 @@ export function Menu() {
   return cartQuantity ? (
     !search && <div className='w-full min-h-[58px] p-2 pt-0'>
       <Button mode="filled" size="l" stretched={true} onClick={purchase} className='main-button'>
-        Buy for { cartCost }
+        Buy for { cartCost } NOT
       </Button>
     </div>
   ) : (

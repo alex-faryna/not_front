@@ -1,7 +1,7 @@
 import {useCart, useItems, usePage, useSearch} from "../state/state.ts";
 import {useEffect, useRef} from "react";
 import {Carousel} from "../ui/carousel.tsx";
-import {Placeholder, Text} from "@telegram-apps/telegram-ui";
+import {Placeholder, Spinner, Text} from "@telegram-apps/telegram-ui";
 
 function Item({ item, onClick, isAnimating }) {
   const { cart } = useCart();
@@ -29,7 +29,7 @@ function Item({ item, onClick, isAnimating }) {
 
 export function HomePage({ onSelect, isAnimating }) {
   const { setPage } = usePage();
-  const { items, loadItems } = useItems();
+  const { items, loadItems, loading } = useItems();
   const { searchQuery } = useSearch();
   useEffect(() => void loadItems(), []);
 
@@ -42,19 +42,25 @@ export function HomePage({ onSelect, isAnimating }) {
   const gridItems = items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return <div className='page home relative'>
-    <div className='grid-container items-stretch'>
-      { gridItems.length ? (
-        <div className='grid'>
-          { gridItems.map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />) }
-        </div>
-      ) : (
-        <div className='flex items-center justify-center w-full h-full'>
-          <Placeholder
-            description="This item does not exist"
-            header="Not found"
-          ></Placeholder>
-        </div>
-      ) }
-    </div>
+    { loading ? (
+      <div className='w-full h-full flex items-center justify-center'>
+        <Spinner size="m" className='loader' />
+      </div>
+    ) : (
+      <div className='grid-container items-stretch'>
+        { gridItems.length ? (
+          <div className='grid'>
+            { gridItems.map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />) }
+          </div>
+        ) : (
+          <div className='flex items-center justify-center w-full h-full'>
+            <Placeholder
+              description="This item does not exist"
+              header="Not found"
+            ></Placeholder>
+          </div>
+        ) }
+      </div>
+    ) }
   </div>
 }

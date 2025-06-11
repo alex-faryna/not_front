@@ -130,6 +130,6 @@
     --tgui--button_text_color: var(--main-bg-color) !important;
 }
 
-.secondary-button {
+.secondary-button, .loader {
     --tgui--link_color: var(--main-color) !important;
 }

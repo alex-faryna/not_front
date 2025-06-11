@@ -102,7 +102,7 @@ export function Header() {
               setShowCart(false);
               purchase();
             }} className='main-button'>
-              Buy for { cartCost }
+              Buy for { cartCost } NOT
             </Button>
           </div>
           : <>
