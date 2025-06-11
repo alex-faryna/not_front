@@ -2,7 +2,7 @@ import {useCart, useItems, usePage, useSearch} from "../state/state.ts";
 import {useEffect, useRef} from "react";
 import checkIcon from '../assets/check.svg'
 import {Carousel} from "../ui/carousel.tsx";
-import {Text} from "@telegram-apps/telegram-ui";
+import {Placeholder, Text} from "@telegram-apps/telegram-ui";
 
 function Item({ item, onClick, isAnimating }) {
   const { cart } = useCart();
@@ -40,11 +40,20 @@ export function HomePage({ onSelect, isAnimating }) {
     setPage('item');
   }
 
+  const gridItems = items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
   return <div className='page home relative'>
-    <div className='grid-container'>
-      <div className='grid'>
-        {items.filter(item => item.name.includes(searchQuery)).map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />)}
-      </div>
+    <div className='grid-container items-stretch justify-center'>
+      { gridItems.length ? (
+        <div className='grid'>
+          { gridItems.map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />) }
+        </div>
+      ) : (
+        <Placeholder
+          description="This item does not exist"
+          header="Not found"
+        ></Placeholder>
+      ) }
     </div>
   </div>
 }

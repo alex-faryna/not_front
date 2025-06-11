@@ -2,7 +2,7 @@ import cartIcon from "../assets/cart.svg";
 import searchIcon from '../assets/search.svg';
 import minusIcon from '../assets/minus.svg';
 import {useCart, useItems, useSearch} from "../state/state.ts";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {
   ModalHeader
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
@@ -11,18 +11,31 @@ import {Button, IconButton, Modal, Placeholder, Text, Title} from "@telegram-app
 import {THEME, useTonConnectUI} from "@tonconnect/ui-react";
 import {Icon16Cancel} from "@telegram-apps/telegram-ui/dist/icons/16/cancel";
 
-function Search({ setSearch }) {
-  const { searchQuery, search, clearSearch } = useSearch();
+function Search({ search, setSearch }) {
+  const { searchQuery, doSearch, clearSearch } = useSearch();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref.current && search) {
+      const input = ref.current as HTMLInputElement;
+      input.focus();
+    }
+  }, [ref, search]);
 
   return <div className='w-full h-full bg-black-500 relative flex gap-2 items-center'>
     <div className='flex gap-2 items-center input-container grow-1'>
       <img src={searchIcon} alt='Search' width={16} height={16} />
-      <input className='input w-full' type='text' value={searchQuery} onChange={val => search(val.target.value)} placeholder='Search' />
+      <input ref={ref} className='input w-full' type='text' value={searchQuery} onChange={val => doSearch(val.target.value)} placeholder='Search' />
       { searchQuery && <IconButton mode='plain' size='s' onClick={clearSearch}>
         <Icon16Cancel/>
       </IconButton> }
     </div>
-    <Text onClick={() => setSearch(false)}>Cancel</Text>
+    <Button onClick={() => {
+      clearSearch();
+      setSearch(false);
+    }} size='s' mode='plain'>
+      <Text className='cursor-pointer'>Cancel</Text>
+    </Button>
   </div>
 }
 
@@ -56,9 +69,9 @@ export function Header() {
 
   return <>
     <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
-      { search && <div className='absolute top-0 left-0 w-full h-full'>
-        <Search setSearch={setSearch} />
-      </div> }
+      <div className={`absolute top-0 left-0 w-full h-full transition-opacity ${search ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <Search search={search} setSearch={setSearch} />
+      </div>
       <Title weight="2">Not Store</Title>
       <img src={searchIcon} alt='Search' width={22} height={22} className='ml-auto' onClick={() => setSearch(true)} />
       { cartQuantity
