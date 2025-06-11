@@ -1,8 +1,9 @@
 import {createRoot} from 'react-dom/client'
-import './index.css'
+import './index.css';
+import './iconmoon.css';
 import App from './App.tsx'
-import {backButton, closingBehavior, init, settingsButton, swipeBehavior, themeParams} from "@telegram-apps/sdk-react";
-import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import {backButton, closingBehavior, init, swipeBehavior, themeParams} from "@telegram-apps/sdk-react";
+import {TonConnectUIProvider} from '@tonconnect/ui-react';
 
 init();
 themeParams.mountSync();

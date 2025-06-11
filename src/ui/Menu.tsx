@@ -1,5 +1,4 @@
 import {useLaunchParams} from "@telegram-apps/sdk-react";
-import homeLogo from '../assets/home.svg'
 import {useCart, useItems, usePage, usePurchase, useSearch} from "../state/state.ts";
 import {Button} from "@telegram-apps/telegram-ui";
 
@@ -25,7 +24,7 @@ export function Menu() {
   ) : (
     <div className='flex min-h-[49px] w-full justify-around' style={{ '--default-transition-duration': '250ms' }}>
       <div className={`transition-opacity flex flex-col items-center justify-center ${page === 'profile' ? 'opacity-30' : ''}`} onClick={() => setPage('home')}>
-        <img src={homeLogo} alt='profile icon' width={24} height={24} className='rounded-full' />
+        <span className="icon-home text-[24px]"></span>
         <span className='text-[10px]'>Store</span>
       </div>
       <div className={`transition-opacity flex flex-col items-center justify-center ${page === 'profile' ? '' : 'opacity-30'}`} onClick={() => setPage('profile')}>

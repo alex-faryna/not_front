@@ -1,6 +1,3 @@
-import cartIcon from "../assets/cart.svg";
-import searchIcon from '../assets/search.svg';
-import minusIcon from '../assets/minus.svg';
 import {usePurchase, useCart, useItems, useSearch} from "../state/state.ts";
 import {useEffect, useRef, useState} from "react";
 import {
@@ -23,7 +20,7 @@ function Search() {
 
   return <div className='w-full h-full relative flex items-center p-2'>
     <div className='flex gap-2 items-center input-container grow-1'>
-      <img src={searchIcon} alt='Search' width={16} height={16} />
+      <span className="icon-search text-[16px]"></span>
       <input ref={ref} className='input w-full' type='text' value={searchQuery} onChange={val => doSearch(val.target.value)} placeholder='Search' />
       { searchQuery && <IconButton mode='plain' size='s' onClick={clearSearch} className='secondary-button'>
         <Icon16Cancel/>
@@ -58,18 +55,22 @@ export function Header() {
   const purchase = usePurchase();
 
   return <>
-    <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
-      <div className={`absolute top-0 left-0 w-full h-full bg-(--main-bg-color) transition-opacity ${search ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+    <div className='flex justify-end h-[60px] p-[16px] items-center relative' style={{ flex: '0 0 60px' }}>
+      <div className={`absolute z-[10] top-0 left-0 w-full h-full bg-(--main-bg-color) transition-opacity ${search ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <Search />
       </div>
       <Title weight="2">Not Store</Title>
-      <img src={searchIcon} alt='Search' width={22} height={22} className='ml-auto' onClick={() => setSearch(true)} />
+      <IconButton mode='plain' size='s' onClick={() => setSearch(true)} className='secondary-button ml-auto'>
+        <span className="icon-search text-[22px]"></span>
+      </IconButton>
       { cartQuantity
-        ? <div className={`rounded-full bg-white h-[22px] w-[22px] flex items-center justify-center`}
+        ? <div className={`rounded-full bg-(--main-color) ml-1 h-[22px] w-[22px] flex items-center justify-center`}
                onClick={() => setShowCart(true)}>
-          <span className='text-black'>{ cartQuantity }</span>
+          <span className='text-(--main-bg-color)'>{ cartQuantity }</span>
         </div>
-        : <img src={cartIcon} alt='Cart' width={22} height={22} onClick={() => setShowCart(true)} /> }
+        : <IconButton mode='plain' size='s' onClick={() => setShowCart(true)} className='secondary-button'>
+          <span className="icon-cart text-[22px]"></span>
+        </IconButton> }
     </div>
 
     <Modal className='modal' onOpenChange={setShowCart} header={<ModalHeader after={
@@ -94,7 +95,7 @@ export function Header() {
                 onClick={() => removeItem(item.id)}
                 className='cursor-pointer h-[28px] w-[28px] flex items-center justify-center'
               >
-                <img src={minusIcon} width={14} height={2} />
+                <span className="icon-minus text-[2px]"></span>
               </IconButton>
             </div>) }
             <Button mode="filled" size="l" stretched={true} onClick={() => {

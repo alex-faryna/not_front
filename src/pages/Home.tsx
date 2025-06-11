@@ -1,6 +1,5 @@
-import {useCart, useItems, usePage, usePurchase, useSearch} from "../state/state.ts";
+import {useCart, useItems, usePage, useSearch} from "../state/state.ts";
 import {useEffect, useRef} from "react";
-import checkIcon from '../assets/check.svg'
 import {Carousel} from "../ui/carousel.tsx";
 import {Placeholder, Text} from "@telegram-apps/telegram-ui";
 
@@ -14,8 +13,8 @@ function Item({ item, onClick, isAnimating }) {
         <img className='absolute top-0 left-0 w-full h-full rounded-[16px]' src={item.images[index]} />
       </div> }
     </Carousel>
-    { cart[item.id] && <div className={`transition-opacity rounded-full bg-white h-[22px] w-[22px] absolute top-[8px] right-[8px] flex items-center justify-center ${isAnimating ? 'opacity-0' : ''}`}>
-      <img src={checkIcon} alt='Added to cart' width={12} height={12} />
+    { cart[item.id] && <div className={`transition-opacity rounded-full bg-(--main-color) h-[22px] w-[22px] absolute top-[8px] right-[8px] flex items-center justify-center ${isAnimating ? 'opacity-0' : ''}`}>
+      <span className="icon-check text-[12px] text-(--main-bg-color)"></span>
     </div> }
     <div className='p-1 flex flex-col items-start'>
       <Text weight="2">{ item.name }</Text>
