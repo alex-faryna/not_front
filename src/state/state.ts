@@ -99,7 +99,7 @@ export const useShopStore = create<ShopState>()((set) => ({
     try {
       const response = await fetch('https://not-contest-cdn.openbuilders.xyz/api/history.json');
       const { data: history } = await response.json();
-      await delay(1000);
+      // await delay(1000);
       set(() => ({ history, loadingHistory: false }));
     } catch (_) {
       set(() => ({ loadingHistory: false }));

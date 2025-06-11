@@ -80,7 +80,7 @@ export function Header() {
     >
       <div className='flex flex-col gap-2 p-2'>
         { Object.keys(cart).length
-          ? <div className='flex flex-col h-full w-full gap-3'>
+          ? <div className='flex flex-col h-full w-full gap-4'>
             { Object.keys(cart).map(id => items.find(item => `${item.id}` === id)).map(item => <div className='flex items-center w-full gap-2'>
               <img src={item.images[0]} alt={`Item ${item.name}`} width={60} height={60} className='h-[60px] rounded-[12px]' />
               <div className='flex flex-col mr-auto'>
