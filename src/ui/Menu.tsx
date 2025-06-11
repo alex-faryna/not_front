@@ -1,6 +1,6 @@
 import {useLaunchParams} from "@telegram-apps/sdk-react";
 import homeLogo from '../assets/home.svg'
-import {useCart, useItems, usePage, usePurchase} from "../state/state.ts";
+import {useCart, useItems, usePage, usePurchase, useSearch} from "../state/state.ts";
 import {Button} from "@telegram-apps/telegram-ui";
 
 export function Menu() {
@@ -8,6 +8,7 @@ export function Menu() {
   const {page, setPage} = usePage();
 
   const purchase = usePurchase();
+  const { search } = useSearch();
   const { items } = useItems();
   const { cart } = useCart();
   const cartQuantity = Object.keys(cart).reduce((acc, curr) => acc + +!!cart[curr], 0);
@@ -16,7 +17,7 @@ export function Menu() {
     .reduce((acc, curr) => acc + cart[curr] * (items.find(item => `${item.id}` === `${curr}`)?.price || 0), 0);
 
   return cartQuantity ? (
-    <div className='w-full min-h-[58px] p-2 pt-0'>
+    !search && <div className='w-full min-h-[58px] p-2 pt-0'>
       <Button mode="filled" size="l" stretched={true} onClick={purchase} className='main-button'>
         Buy for { cartCost }
       </Button>

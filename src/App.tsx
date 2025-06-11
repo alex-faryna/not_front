@@ -149,10 +149,10 @@ function App() {
       { item && <ItemPage ref={hero} isAnimating={heroAnimation}/> }
     </div>
     <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current} />
-    <Modal  className='modal' onOpenChange={setShowSettings} header={<ModalHeader after={
+    <Modal className='modal' onOpenChange={setShowSettings} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
     }></ModalHeader> as any} open={showSettings}>
-      <div className='flex flex-col gap-2 modal'>
+      <div className='flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
           <span>Motion</span>
           <Switch checked={motion} onChange={() => setMotion(val => !val)} />

@@ -43,16 +43,18 @@ export function HomePage({ onSelect, isAnimating }) {
   const gridItems = items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return <div className='page home relative'>
-    <div className='grid-container items-stretch justify-center'>
+    <div className='grid-container items-stretch'>
       { gridItems.length ? (
         <div className='grid'>
           { gridItems.map(item => <Item key={item.id} item={item} onClick={onClick} isAnimating={isAnimating} />) }
         </div>
       ) : (
-        <Placeholder
-          description="This item does not exist"
-          header="Not found"
-        ></Placeholder>
+        <div className='flex items-center justify-center w-full h-full'>
+          <Placeholder
+            description="This item does not exist"
+            header="Not found"
+          ></Placeholder>
+        </div>
       ) }
     </div>
   </div>

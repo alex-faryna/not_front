@@ -11,11 +11,10 @@ themeParams.bindCssVars();
 swipeBehavior.mount();
 swipeBehavior.disableVertical();
 
-settingsButton.mount();
-settingsButton.show();
+// settingsButton.mount();
+// settingsButton.show();
 
 if (closingBehavior.mount.isAvailable()) {
-  console.log('mount');
   closingBehavior.mount();
 }
 

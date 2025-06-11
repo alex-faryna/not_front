@@ -3,16 +3,6 @@
     padding-bottom: var(--tg-viewport-safe-area-inset-bottom, 0) !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 ._main-container {
     transition: transform 450ms ease-out;
 }
@@ -112,12 +102,6 @@
     transform-origin: 0 0;
 }
 
-.embla {
-    overflow: hidden;
-}
-.embla__container {
-    display: flex;
-}
 .embla__slide {
     flex: 0 0 100%;
     min-width: 0;
@@ -138,6 +122,7 @@
 
 .modal {
     --tgui--bg_color: var(--main-bg-color) !important;
+    padding-bottom: var(--tg-viewport-safe-area-inset-bottom, 0) !important;
 }
 
 .main-button {

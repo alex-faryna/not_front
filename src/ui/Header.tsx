@@ -8,11 +8,10 @@ import {
 } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
 import {Button, IconButton, Modal, Placeholder, Text, Title} from "@telegram-apps/telegram-ui";
-import {THEME, useTonConnectUI} from "@tonconnect/ui-react";
 import {Icon16Cancel} from "@telegram-apps/telegram-ui/dist/icons/16/cancel";
 
-function Search({ search, setSearch }) {
-  const { searchQuery, doSearch, clearSearch } = useSearch();
+function Search() {
+  const { searchQuery, doSearch, clearSearch, search, setSearch } = useSearch();
   const ref = useRef(null);
 
   useEffect(() => {
@@ -58,13 +57,13 @@ export function Header() {
     });
   }
 
-  const [search, setSearch] = useState(false);
+  const { search, setSearch } = useSearch();
   const purchase = usePurchase();
 
   return <>
     <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
       <div className={`absolute top-0 left-0 w-full h-full bg-(--main-bg-color) transition-opacity ${search ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <Search search={search} setSearch={setSearch} />
+        <Search />
       </div>
       <Title weight="2">Not Store</Title>
       <img src={searchIcon} alt='Search' width={22} height={22} className='ml-auto' onClick={() => setSearch(true)} />
@@ -81,7 +80,7 @@ export function Header() {
     }></ModalHeader> as any}
            open={showCart}
     >
-      <div className='flex flex-col gap-2 p-2 modal'>
+      <div className='flex flex-col gap-2 p-2'>
         { Object.keys(cart).length
           ? <div className='flex flex-col h-full w-full gap-2'>
             { Object.keys(cart).map(id => items.find(item => `${item.id}` === id)).map(item => <div className='flex items-center w-full gap-2'>
