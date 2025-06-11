@@ -26,7 +26,6 @@ function Item({ item, onClick, isAnimating }) {
   </div>
 }
 
-
 export function HomePage({ onSelect, isAnimating }) {
   const { setPage } = usePage();
   const { items, loadItems, loading } = useItems();
@@ -35,7 +34,6 @@ export function HomePage({ onSelect, isAnimating }) {
 
   const onClick = (item: number, target: HTMLImageElement) => {
     onSelect(item, target);
-    target.style.opacity = '0';
     setPage('item');
   }
 

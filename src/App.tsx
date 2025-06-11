@@ -41,6 +41,7 @@ function HeroItem({ isAnimating, from, to }: { from: HTMLDivElement, to: HTMLDiv
           transform: `translate(${to.offsetLeft}px, ${_to.top}px) scale(1, 1)`,
         }
       ], {duration: 500, easing: 'ease-out', fill: 'both' });
+      from.style.opacity = '0';
     } else {
       heroElement.style.width = `${_from.width}px`;
       heroElement.style.height = `${_from.height}px`;
