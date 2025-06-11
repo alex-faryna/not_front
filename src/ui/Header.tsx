@@ -73,7 +73,8 @@ export function Header() {
         </IconButton> }
     </div>
 
-    <Modal className='modal' onOpenChange={setShowCart} header={<ModalHeader after={
+    <Modal className='modal' overlayComponent={<div className='w-full h-full pointer-events-none'></div>}
+           onOpenChange={setShowCart} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowCart(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
     }></ModalHeader> as any}
            open={showCart}
