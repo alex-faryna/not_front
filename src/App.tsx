@@ -143,16 +143,16 @@ function App() {
       </div>
     </div>
     <Menu />
-    <div className='absolute left-[100vw] top-0 w-full h-full bg-orange-500 _side-container'
+    <div className='absolute left-[100vw] top-0 w-full h-full _side-container'
          onTransitionEnd={() => setHeroAnimation(false)}
          style={{transform: `translateX(${page === 'item' ? '-100%' : '0'})`}}>
       { item && <ItemPage ref={hero} isAnimating={heroAnimation}/> }
     </div>
     <HeroItem isAnimating={heroAnimation} from={targetElem} to={hero.current} />
-    <Modal onOpenChange={setShowSettings} header={<ModalHeader after={
+    <Modal  className='modal' onOpenChange={setShowSettings} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowSettings(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
     }></ModalHeader> as any} open={showSettings}>
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 modal'>
         <div className='flex items-center justify-between'>
           <span>Motion</span>
           <Switch checked={motion} onChange={() => setMotion(val => !val)} />

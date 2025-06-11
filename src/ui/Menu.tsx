@@ -17,12 +17,12 @@ export function Menu() {
 
   return cartQuantity ? (
     <div className='w-full min-h-[58px] p-2 pt-0'>
-      <Button mode="filled" size="l" stretched={true} onClick={purchase}>
+      <Button mode="filled" size="l" stretched={true} onClick={purchase} className='main-button'>
         Buy for { cartCost }
       </Button>
     </div>
   ) : (
-    <div className='flex min-h-[49px] w-full justify-around' style={{ '--default-transition-duration': '250ms', background: 'black' }}>
+    <div className='flex min-h-[49px] w-full justify-around' style={{ '--default-transition-duration': '250ms' }}>
       <div className={`transition-opacity flex flex-col items-center justify-center ${page === 'profile' ? 'opacity-30' : ''}`} onClick={() => setPage('home')}>
         <img src={homeLogo} alt='profile icon' width={24} height={24} className='rounded-full' />
         <span className='text-[10px]'>Store</span>

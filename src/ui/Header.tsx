@@ -22,7 +22,7 @@ function Search({ search, setSearch }) {
     }
   }, [ref, search]);
 
-  return <div className='w-full h-full bg-black-500 relative flex gap-2 items-center'>
+  return <div className='w-full h-full relative flex items-center p-2'>
     <div className='flex gap-2 items-center input-container grow-1'>
       <img src={searchIcon} alt='Search' width={16} height={16} />
       <input ref={ref} className='input w-full' type='text' value={searchQuery} onChange={val => doSearch(val.target.value)} placeholder='Search' />
@@ -63,7 +63,7 @@ export function Header() {
 
   return <>
     <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
-      <div className={`absolute top-0 left-0 w-full h-full transition-opacity ${search ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`absolute top-0 left-0 w-full h-full bg-(--main-bg-color) transition-opacity ${search ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <Search search={search} setSearch={setSearch} />
       </div>
       <Title weight="2">Not Store</Title>
@@ -76,12 +76,12 @@ export function Header() {
         : <img src={cartIcon} alt='Cart' width={22} height={22} onClick={() => setShowCart(true)} /> }
     </div>
 
-    <Modal onOpenChange={setShowCart} header={<ModalHeader after={
+    <Modal className='modal' onOpenChange={setShowCart} header={<ModalHeader after={
       <Icon28Close onClick={() => setShowCart(false)} style={{color: 'var(--tgui--plain_foreground)'}} />
     }></ModalHeader> as any}
            open={showCart}
     >
-      <div className='flex flex-col gap-2 p-2'>
+      <div className='flex flex-col gap-2 p-2 modal'>
         { Object.keys(cart).length
           ? <div className='flex flex-col h-full w-full gap-2'>
             { Object.keys(cart).map(id => items.find(item => `${item.id}` === id)).map(item => <div className='flex items-center w-full gap-2'>
@@ -96,6 +96,7 @@ export function Header() {
                 mode="gray"
                 size="m"
                 onClick={() => removeItem(item.id)}
+                className='cursor-pointer h-[28px] w-[28px] flex items-center justify-center'
               >
                 <img src={minusIcon} width={14} height={2} />
               </IconButton>
@@ -103,14 +104,14 @@ export function Header() {
             <Button mode="filled" size="l" stretched={true} onClick={() => {
               setShowCart(false);
               purchase();
-            }}>
+            }} className='main-button'>
               Buy for { cartCost }
             </Button>
           </div>
           : <>
             <Placeholder header="Cart's cold"
                          description="No items yet" ></Placeholder>
-            <Button onClick={() => setShowCart(false)} size="l">OK</Button>
+            <Button onClick={() => setShowCart(false)} size="l" className='main-button'>OK</Button>
           </> }
       </div>
     </Modal>

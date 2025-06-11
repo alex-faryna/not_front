@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {useShallow} from "zustand/react/shallow";
-import {THEME, useTonConnectUI} from "@tonconnect/ui-react";
+import {useTonConnectUI} from "@tonconnect/ui-react";
 import {useCallback} from "react";
 
 type Page = 'home' | 'item' | 'profile';
@@ -137,7 +137,7 @@ export const usePurchase = () => {
 
   setOptions({
     uiPreferences: {
-      theme: THEME.DARK,
+      theme: 'SYSTEM',
       borderRadius: 's',
     }
   });

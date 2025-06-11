@@ -46,27 +46,26 @@ export function ItemPage({ref, isAnimating}) {
         {
           (cart[item.id] || 0)
           ? (
-              <div className='flex gap-1 w-full rounded-[12px] items-center justify-center h-[50px]'
-                   style={{ background: 'rgba(255, 255, 255, 0.08)' }}>
-                <Button onClick={() => removeFromCart(item.id)} size='s' mode='plain'>
+              <div className='flex gap-1 w-full rounded-[12px] items-center justify-center h-[50px] bg-(--secondary-bg-color)'>
+                <Button onClick={() => removeFromCart(item.id)} size='s' mode='plain' className='secondary-button'>
                   <Text weight="1">-</Text>
                 </Button>
                 <Text weight="1" className='flex items-center justify-center w-[2em] select-none cursor-default'>{cart[item.id]}</Text>
-                <Button onClick={() => addToCart(item.id)} size='s' mode='plain'>
+                <Button onClick={() => addToCart(item.id)} size='s' mode='plain' className='secondary-button'>
                   <Text weight="1">+</Text>
                 </Button>
               </div>
             )
           :
             <div className='w-full h-full'>
-              <Button mode="filled" size="l" stretched={true} onClick={() => addToCart(item.id)}>
+              <Button mode="filled" size="l" stretched={true} onClick={() => addToCart(item.id)} className='main-button'>
                 Add to cart
               </Button>
             </div>
         }
         <div className='w-full h-full'>
-          <Button mode="filled" size="l" stretched={true} onClick={purchase}>
-            Buy now
+          <Button mode="filled" size="l" stretched={true} onClick={purchase} className='main-button'>
+            Buy now 22
           </Button>
         </div>
       </div>

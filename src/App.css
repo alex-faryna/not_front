@@ -3,32 +3,6 @@
     padding-bottom: var(--tg-viewport-safe-area-inset-bottom, 0) !important;
 }
 
-* {
-    color: white;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
@@ -48,13 +22,13 @@
 }
 
 .page {
+    background-color: var(--main-bg-color);
     min-width: 100vw;
     width: 100vw;
     height: 100%;
 }
 
 .home {
-    background: black;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -99,12 +73,10 @@
 }
 
 .profile {
-    background: black;
     overflow: hidden;
 }
 
 .page.item {
-    background: black;
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
@@ -152,7 +124,7 @@
 }
 
 .input-container {
-    background-color: rgba(255, 255, 255, 0.05);
+    background: rgba(var(--main-color-rgb), 0.05);
     border-radius: 10px;
     height: 36px;
     padding: 0 8px;
@@ -160,20 +132,19 @@
 
 .input {
     outline: none;
-    caret-color: rgba(255, 255, 255, 0.5);
-    color: white;
+    caret-color: rgba(var(--main-color), 0.5);
     background: transparent;
 }
 
-.bg-black-500 {
-    background: black;
-    padding: 0.5rem;
+.modal {
+    --tgui--bg_color: var(--main-bg-color) !important;
 }
-/*
-.input:hover,
-.input:focus {
-    border: 2px solid #4A9DEC;
-    box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
-    background-color: white;
-}]
- */
+
+.main-button {
+    --tgui--button_color: var(--main-color) !important;
+    --tgui--button_text_color: var(--main-bg-color) !important;
+}
+
+.secondary-button {
+    --tgui--link_color: var(--main-color) !important;
+}
