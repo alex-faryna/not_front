@@ -1,4 +1,4 @@
-import {useCart, useItems, usePage, useSearch} from "../state/state.ts";
+import {useCart, useItems, usePage, usePurchase, useSearch} from "../state/state.ts";
 import {useEffect, useRef} from "react";
 import checkIcon from '../assets/check.svg'
 import {Carousel} from "../ui/carousel.tsx";

@@ -1,5 +1,7 @@
 import {create} from "zustand/react";
 import {useShallow} from "zustand/react/shallow";
+import {THEME, useTonConnectUI} from "@tonconnect/ui-react";
+import {useCallback} from "react";
 
 type Page = 'home' | 'item' | 'profile';
 
@@ -129,3 +131,20 @@ export const useActiveImage = () => useShopStore(
 export const useSearch = () => useShopStore(
   useShallow(({ searchQuery, doSearch, clearSearch }: ShopState) => ({ searchQuery, doSearch, clearSearch })),
 );
+
+export const usePurchase = () => {
+  const [tonConnectUI, setOptions] = useTonConnectUI();
+
+  setOptions({
+    uiPreferences: {
+      theme: THEME.DARK,
+      borderRadius: 's',
+    }
+  });
+
+  const fn = useCallback(() => {
+    void tonConnectUI.openModal();
+  }, [tonConnectUI]);
+
+  return fn;
+}

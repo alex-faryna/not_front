@@ -1,7 +1,7 @@
 import cartIcon from "../assets/cart.svg";
 import searchIcon from '../assets/search.svg';
 import minusIcon from '../assets/minus.svg';
-import {useCart, useItems, useSearch} from "../state/state.ts";
+import {usePurchase, useCart, useItems, useSearch} from "../state/state.ts";
 import {useEffect, useRef, useState} from "react";
 import {
   ModalHeader
@@ -59,13 +59,7 @@ export function Header() {
   }
 
   const [search, setSearch] = useState(false);
-  const [tonConnectUI, setOptions] = useTonConnectUI();
-  setOptions({
-    uiPreferences: {
-      theme: THEME.DARK,
-      borderRadius: 's',
-    }
-  });
+  const purchase = usePurchase();
 
   return <>
     <div className='flex justify-end h-[60px] p-[16px] gap-4 items-center relative' style={{ flex: '0 0 60px' }}>
@@ -108,7 +102,7 @@ export function Header() {
             </div>) }
             <Button mode="filled" size="l" stretched={true} onClick={() => {
               setShowCart(false);
-              tonConnectUI.openModal();
+              purchase();
             }}>
               Buy for { cartCost }
             </Button>
