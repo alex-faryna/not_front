@@ -80,22 +80,22 @@ export function Header() {
     >
       <div className='flex flex-col gap-2 p-2'>
         { Object.keys(cart).length
-          ? <div className='flex flex-col h-full w-full gap-2'>
+          ? <div className='flex flex-col h-full w-full gap-3'>
             { Object.keys(cart).map(id => items.find(item => `${item.id}` === id)).map(item => <div className='flex items-center w-full gap-2'>
               <img src={item.images[0]} alt={`Item ${item.name}`} width={60} height={60} className='h-[60px] rounded-[12px]' />
-              <div className='flex flex-col'>
-                <Text>{ item.category }</Text>
+              <div className='flex flex-col mr-auto'>
+                <Text className='text-(--text-secondary)' style={{ '--tgui--text--font_size': '12px' }}>{ item.category }</Text>
                 <Text>{ item.name }</Text>
               </div>
-              <span className='text-lg ml-auto'>{ item.price } { item.currency }</span>
-              <span>x { cart[item.id] }</span>
+              <Text className='text-lg ml-auto'>{ item.price } { item.currency }</Text>
+              <Text className='text-(--text-secondary)'>x { cart[item.id] }</Text>
               <IconButton
                 mode="gray"
                 size="m"
                 onClick={() => removeItem(item.id)}
-                className='cursor-pointer h-[28px] w-[28px] flex items-center justify-center'
+                className='cursor-pointer h-[28px] w-[28px] flex items-center justify-center minus-button'
               >
-                <span className="icon-minus text-[2px]"></span>
+                <span className='icon-minus text-[2px] text-(--text-secondary)'></span>
               </IconButton>
             </div>) }
             <Button mode="filled" size="l" stretched={true} onClick={() => {

@@ -133,3 +133,7 @@
 .secondary-button, .loader {
     --tgui--link_color: var(--main-color) !important;
 }
+
+.minus-button {
+    border-radius: 8px !important;
+}

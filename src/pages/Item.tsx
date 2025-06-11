@@ -4,23 +4,26 @@ import {Button, Caption, Text, Title} from "@telegram-apps/telegram-ui";
 
 function ItemInfo({item}) {
 
+  const [pct, fabric] = item.tags.fabric.split(' ');
+
   return <div className='flex flex-col gap-2 items-start'>
     <Title weight="2">{ item.name }</Title>
     <span className='text-lg'>{item.description}</span>
     <div className='flex gap-2 items-center'>
-      <div className='flex items-center gap1 rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
+      <div className='flex items-center gap-1 rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
         <Caption>{item.price}</Caption>
-        <Caption>{item.currency}</Caption>
+        <Caption className='text-(--text-secondary)'>{item.currency}</Caption>
       </div>
 
-      <div className='flex gap1 items-center rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
+      <div className='flex gap-1 items-center rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
         <Caption>{item.left}</Caption>
-        <Caption>Left</Caption>
+        <Caption className='text-(--text-secondary)'>Left</Caption>
       </div>
 
       {item.tags?.['fabric'] && (
-        <div className='flex gap1 items-center rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
-          <Caption>{item.tags.fabric}</Caption>
+        <div className='flex gap-1 items-center rounded-[10px] h-[18px] bg-(--secondary-bg-color)' style={{ padding: '2px 8px' }}>
+          <Caption>{pct}</Caption>
+          <Caption className='text-(--text-secondary)'>{fabric}</Caption>
         </div>
       )}
     </div>

@@ -43,7 +43,7 @@ export function ProfilePage() {
             </div>
           </div> : <div className='flex flex-col items-center justify-center grow-1 gap-2'>
             <Title level="1" weight="2">No history yet</Title>
-            <Text>Let's change that</Text>
+            <Text className='text-(--text-secondary)'>Let's change that</Text>
           </div>
       ) }
   </div>;
